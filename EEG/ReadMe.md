@@ -2,9 +2,11 @@ Autor: Rodrigo Ralda G. - ral14813@uvg.edu.gt
 
 En el siguiente repositorio se encuentran 4 archivos .m desarrollados en MATLAB R2018a.
 Para utilizar los códigos es necesario descargar las funciones Eventread.m y edfread.m
-Los cuales se encuentran en el siguiente enlace: 
+Las cuales se encuentran en el siguiente enlace: 
 https://es.mathworks.com/matlabcentral/answers/375362-how-can-i-read-edf-event-file-since-i-have-corresponded-edf-file-in-matlab
 Con un ejemplo para entender su uso.
+La base de datos con la que se trabaja es de Physionet y se encuentra en el siguiente enlace:
+https://physionet.org/content/eegmmidb/1.0.0/
 
 Cada archivo tiene sus comentarios y la idea general de cada uno se detalla a continuación:
 
