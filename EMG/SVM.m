@@ -1,19 +1,19 @@
-%% CLASIFICACI覰 CON SVM
-%Mar韆 Fernanda Gir髇, 16820
-%Dise駉 e Innovaci髇, secci髇: 10
+%% CLASIFICACI脫N CON SVM
+%Mar铆a Fernanda Gir贸n, 16820
+%Dise帽o e Innovaci贸n, secci贸n: 10
 
-%Utilizando la librer韆 libsvm disponible para matlab
-%% EXTRACCI覰 CARACTER蚐TICAS
-%tine 6 clases (2 canales x clase)(30 veces cada mov. 3000 puntos de la se馻l.)
+%Utilizando la librer铆a libsvm disponible para matlab
+%% EXTRACCI脫N CARACTER脥STICAS
+%tine 6 clases (2 canales x clase)(30 veces cada mov. 3000 puntos de la se帽al.)
 %Separar y extraer features, para crear la matriz con el formato correcto.
-load data.mat
+load data_svm.mat
 
 labels = labels_r;
 data = data_r;
 clase = 6;                           %no. clases
 muestras = 180;                      %no. muestras
 
-%Extracci髇 caracter韘ticas para cada canal
+%Extracci贸n caracter铆sticas para cada canal
 for i = 1:muestras
     v_mav(i,:) = [mav(data(i,1:3000)),mav(data(i,3001:end))];
     v_zc(i,:) = [zc(data(i,1:3000),0),zc(data(i,3001:end),0)];
@@ -24,13 +24,13 @@ for i = 1:muestras
     v_desv(i,:) = [desv(data(i,1:3000)),desv(data(i,3001:end))];
 end
 
-features = [v_mav,v_zc,v_iemg,v_wl,v_rms];   %Vector de caracter韘ticas
+features = [v_mav,v_zc,v_iemg,v_wl,v_rms];   %Vector de caracter铆sticas
 
 fs = sparse(features);
-libsvmwrite('DB',labels,fs); %formato especial de la librer韆 
+libsvmwrite('DB',labels,fs); %formato especial de la librer铆a 
 [X,Y] = libsvmread('DB');    %X = labels; Y = features
 
-%Dividir los datos para validaci髇 cruzada
+%Dividir los datos para validaci贸n cruzada
 X_div = reshape(X,[36,5]);
 Y_1 = Y(1:36,:);
 Y_2 = Y(37:72,:);
@@ -84,20 +84,20 @@ for i = 1:5
 
     % Kernel Lineal
     model_linear = svmtrain(X_train, Y_train, '-t 0 -h 0 -q');  %entrenamiento 
-    [predict_label_L, accuracy_L, dec_values_L] = svmpredict(X_test,Y_test, model_linear);  %clasificaci髇
+    [predict_label_L, accuracy_L, dec_values_L] = svmpredict(X_test,Y_test, model_linear);  %clasificaci贸n
     A2(i) = accuracy_L(1,1);
-    M2 = M2 + confusionmat(X_test,predict_label_L);    %matriz confusi髇
+    M2 = M2 + confusionmat(X_test,predict_label_L);    %matriz confusi贸n
      
     %Kernel Polinomial 
     model_pol = svmtrain(X_train, Y_train, '-t 1 -h 0 -q');   %entrenamiento 
-    [predict_label_P, accuracy_P, dec_values_P] = svmpredict(X_test,Y_test, model_pol);   %clasificaci髇
+    [predict_label_P, accuracy_P, dec_values_P] = svmpredict(X_test,Y_test, model_pol);   %clasificaci贸n
     A(i) = accuracy_P(1,1);
-    M = M + confusionmat(X_test,predict_label_P);      %matriz confusi髇
+    M = M + confusionmat(X_test,predict_label_P);      %matriz confusi贸n
 end
 
 acP = mean(A)    %accuracy promedio kernel polinomial
 acL = mean(A2)   %accuracy promedio kernel lineal
-M_L = M2*100/muestras;     %matriz de confusi髇 porcentajes kernel lineal
-M_P = M*100/muestras;      %matriz de confusi髇 porcentajes kernel polinomial
+M_L = M2*100/muestras;     %matriz de confusi贸n porcentajes kernel lineal
+M_P = M*100/muestras;      %matriz de confusi贸n porcentajes kernel polinomial
 
 
