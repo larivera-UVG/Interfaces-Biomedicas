@@ -1,14 +1,7 @@
 María Fernanda Girón Arévalo, 16820
 Diseño e Innovación, sección 10
 
-El repositorio cuenta con 7 funciones para extracción de características temporales: 
-  -mav.m
-  -rms.m
-  -zc.m
-  -wl.m
-  -varianza.m
-  -desv.m
-  -emg.m
+El repositorio cuenta con 7 funciones para extracción de características temporales: mav.m, rms.m, wl.m, zc.m, varianza.m, desv.m, emg.m.
   
 -Base de datos "female_1.mat" que contiene señales electromiográficas de 6 tipos de agarre diferentes, divididas en 2 canales, 30 muestras por clase.
 
