@@ -12,7 +12,7 @@ https://physionet.org/content/eegmmidb/1.0.0/
 Cada archivo tiene sus comentarios y la idea general de cada uno se detalla a continuación:
 
 createData.m
-Abre, lee, selecciona canales de interes y extrae caracteristicas de los mismos.
+Abre, lee, selecciona canales de interés y extrae características de los mismos.
 
 metricas.m
 Función para extraer características de Zero Crossing y Mean Absolute Value.
