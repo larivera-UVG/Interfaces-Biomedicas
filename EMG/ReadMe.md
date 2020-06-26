@@ -15,6 +15,9 @@ https://www.csie.ntu.edu.tw/~cjlin/libsvm/
 -RN.mat
 Clasificador utilizando redes neuronales.
 
+-get_data.ino 
+Leer los datos del bitalino utilizando un Arduino y enviarlos por el puerto serial.
+
 
 
 
