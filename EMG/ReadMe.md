@@ -18,6 +18,9 @@ Clasificador utilizando redes neuronales.
 -get_data.ino 
 Leer los datos del bitalino utilizando un Arduino y enviarlos por el puerto serial.
 
+-read_data.py
+Recibe por el puerto serial los datos de Arduino. Se aplican filtros y se grafica la señal en tiempo real. También cuenta con la opción para almacenar los datos en un archivo .csv
+
 
 
 
