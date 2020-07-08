@@ -1,8 +1,8 @@
 %% ORGANIZAR LOS DATOS
-%Mar韆 Fernanda Gir髇, 16820
-%Dise駉 e Innovaci髇, secci髇: 10
+%Mar铆a Fernanda Gir贸n, 16820
+%Dise帽o e Innovaci贸n, secci贸n: 10
 
-%En este sript se organizan los datos seg鷑 cada clasificador.
+%En este sript se organizan los datos seg煤n cada clasificador.
 %Se crea el vector o la matriz que contiene las etiquetas correspondientes
 %a cada clase. 
 
@@ -65,7 +65,7 @@ labels(91:120,4)=ones(30,1);
 labels(121:150,5)=ones(30,1);
 labels(151:180,6)=ones(30,1);
 
-% r = randn(180,10);   %La separaci髇 en random
+% r = randn(180,10);   %La separaci贸n en random
 % rand_num = randperm(size(r,1));
 % data_r = data(rand_num(1:round(length(rand_num))),:);  
 % labels_r = labels(rand_num(1:round(length(rand_num))),:);
