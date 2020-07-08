@@ -1,9 +1,9 @@
-%% CLASIFICACIÓN CON RN
-%María Fernanda Girón, 16820
-%Diseño e Innovación, sección: 10
+%% CLASIFICACIÃ“N CON RN
+%MarÃ­a Fernanda GirÃ³n, 16820
+%DiseÃ±o e InnovaciÃ³n, secciÃ³n: 10
 
-%% EXTRACCIÓN CARACTERÍSTICAS
-%tine 6 clases (2 canales x clase)(30 veces cada mov. 3000 puntos de la señal.)
+%% EXTRACCIÃ“N CARACTERÃSTICAS
+%tine 6 clases (2 canales x clase)(30 veces cada mov. 3000 puntos de la seÃ±al.)
 %Separar y extraer features, para crear la matriz con el formato correcto.
 load RN_female.mat
 
@@ -21,14 +21,14 @@ for i = 1:muestras
     v_var(i,:) = [varianza(data(i,1:3000)),varianza(data(i,3001:end))];
     v_desv(i,:) = [desv(data(i,1:3000)),desv(data(i,3001:end))];
 end
-features = [v_mav,v_zc];   %Características
+features = [v_mav,v_zc];   %CaracterÃ­sticas
 
 %% REDES NEURONALES
 
 % Script generado con Neural Pattern Recognition app
 % 11-May-2020 15:37:10
 
-x = features';   %características
+x = features';   %caracterÃ­sticas
 t = labels';     %etiquetas
 
 % Choose a Training Function
@@ -42,7 +42,7 @@ trainFcn = 'trainlm';  % Scaled conjugate gradient backpropagation.
 hiddenLayerSize = 10;
 net = patternnet(hiddenLayerSize, trainFcn);
 
-% Dividir los datos en entrenamiento, validación y prueba. 
+% Dividir los datos en entrenamiento, validaciÃ³n y prueba. 
 net.divideParam.trainRatio = 70/100;
 net.divideParam.valRatio = 15/100;
 net.divideParam.testRatio = 15/100;
