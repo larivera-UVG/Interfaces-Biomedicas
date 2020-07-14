@@ -73,7 +73,7 @@ clear all;
 load('caracteristicas.mat');
 
 %%
-cantCanal = 2;
+cantCanal = 4;
 record = data{2,11};
 label = record(66,:);
 
@@ -85,7 +85,11 @@ for cc = 1:cantCanal
     if (cc == 1)
         canal = record(9,:);%9
     elseif (cc == 2)
+        canal = record(10,:);
+    elseif (cc == 3)
         canal = record(14,:);
+    elseif (cc == 4)
+        canal = record(15,:);
     end
 
 
