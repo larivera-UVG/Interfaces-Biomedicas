@@ -1,3 +1,4 @@
+% Rodrigo Ralda
 %% Wavelet Time Scattering for EEG Signal Classification
 % Ejemplo para meter datos al classification learner
 % This example shows how to classify human electrocardiogram (ECG) signals
@@ -70,12 +71,12 @@
 % % After you unzip the ECGData.zip file, load the data into MATLAB.
 % load(fullfile(tempdir,'ECGData','ECGData.mat'))
 
-%  clear all;
-%  load('caracteristicas.mat');
+ clear all;
+ load('caracteristicas.mat');
 
 %%
 cantCanal = 8;
-record = data{2,12};%11
+record = data{2,11};%11
 label = record(66,:);
 
 caracteristicas = [];
@@ -315,14 +316,3 @@ for cc = 1:cantCanal
   
 end
 clasLearn2 = [caracteristicas, etiquetas(:,1)];
-
-% yfitK = trainedModelKNNf.predictFcn(clasLearn2(:,1:300));
-% yfitS = trainedModelSVM2.predictFcn(clasLearn2(:,1:end-1));
-% yfitS = trainedModelLn.predictFcn(clasLearn2(:,1:end-1));
-% % 
-% % comparacion = yfitK-clasLearn2(:,301);
-% % 
-% % confusionmat(clasLearn2(:,301),yfitK)
-% confusionchart(clasLearn2(:,end),yfitS)
-% figure(9); clf;
-% plotconfusion(clasLearn2(:,301),yfitS);

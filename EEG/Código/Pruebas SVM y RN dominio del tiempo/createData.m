@@ -9,7 +9,7 @@
 % 
 % %clear all;
 % 
-% [filename,pathname] = uigetfile({'*.*';'*.edf'},'Pick edf File');
+[filename,pathname] = uigetfile({'*.*';'*.edf'},'Pick edf File');
 
 pathname = 'C:\Users\rodri\Downloads\Semestre 9 UVG\DiseñoIngenieria1\Base de Datos\eeg-motor-movementimagery-dataset-1.0.0\files\S001\';
 % Varianza, amplitud maxima y curtosis
