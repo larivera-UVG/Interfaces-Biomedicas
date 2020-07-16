@@ -1,9 +1,9 @@
 %% Predicciones
 % Rodrigo Ralda
 
-clear all;
-load('caracteristicas.mat');
-load('modelosEntrenados.mat');
+%clear all;
+%load('caracteristicas.mat');
+%load('modelosEntrenados.mat');
 
 cantCanal = 8;
 record = data{2,12};
@@ -246,6 +246,9 @@ for cc = 1:cantCanal
   
 end
 clasLearn2 = [caracteristicas, etiquetas(:,1)];
+
+% reduced = pca(caracteristicas');
+% yfitL = trainedModelNBG.predictFcn(reduced);
 
 yfitL = trainedModelLn.predictFcn(clasLearn2(:,1:end-1));
 yfitS = trainedModelSVM3.predictFcn(clasLearn2(:,1:end-1));
