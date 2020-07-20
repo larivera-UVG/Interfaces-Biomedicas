@@ -320,3 +320,5 @@ clasLearn2 = [caracteristicas, etiquetas(:,1)]; %Features de wavelets
 reduced = pca(caracteristicas');
 
 clasLearn3 = [reduced, etiquetas(:,1)];% No funciona con reduced' 66% de rendimiento max
+%con reduced si tiene 91% de rendimiento pero malas predicciones
+

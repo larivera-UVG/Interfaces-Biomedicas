@@ -253,6 +253,7 @@ clasLearn2 = [caracteristicas, etiquetas(:,1)];
 yfitL = trainedModelLn.predictFcn(clasLearn2(:,1:end-1));
 yfitS = trainedModelSVM3.predictFcn(clasLearn2(:,1:end-1));
 
+
 figure(1); clf;
 s = confusionchart(clasLearn2(:,end),yfitS);
 s.Title = 'Matriz de confusión SVM grado 3';
@@ -262,5 +263,13 @@ s.ColumnSummary = 'column-normalized';
 figure(2); clf;
 L = confusionchart(clasLearn2(:,end),yfitL)
 L.Title = 'Matriz de confusión Discriminante Lineal';
+L.RowSummary = 'row-normalized';
+L.ColumnSummary = 'column-normalized';
+
+yfitK = trainedModelKNN.predictFcn(clasLearn2(:,1:end-1));
+
+figure(3); clf;
+L = confusionchart(clasLearn2(:,end),yfitK)
+L.Title = 'Matriz de confusión KNN';
 L.RowSummary = 'row-normalized';
 L.ColumnSummary = 'column-normalized';
