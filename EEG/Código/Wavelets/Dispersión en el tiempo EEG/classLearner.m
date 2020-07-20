@@ -75,7 +75,7 @@
  load('caracteristicas.mat');
 
 %%
-cantCanal = 8;
+cantCanal = 2;
 record = data{2,11};%11
 label = record(66,:);
 
@@ -316,9 +316,21 @@ for cc = 1:cantCanal
   
 end
 clasLearn2 = [caracteristicas, etiquetas(:,1)]; %Features de wavelets
+%% Clasificador Binario
+clasLearn3 = [];
+for jj=1:size(clasLearn2,1)
+    if(clasLearn2(jj,end)==0)
+         clasLearn3 = [clasLearn3; clasLearn2(jj,:)];
+    elseif(clasLearn2(jj,end)==1)  
+         clasLearn3 = [clasLearn3; clasLearn2(jj,:)];
+    end
+    
+end
 
-reduced = pca(caracteristicas');
+%% PCA 
 
-clasLearn3 = [reduced, etiquetas(:,1)];% No funciona con reduced' 66% de rendimiento max
-%con reduced si tiene 91% de rendimiento pero malas predicciones
+% % reduced = pca(caracteristicas');
+% % 
+% % clasLearn3 = [reduced, etiquetas(:,1)];% No funciona con reduced' 66% de rendimiento max
+% % %con reduced si tiene 91% de rendimiento pero malas predicciones
 

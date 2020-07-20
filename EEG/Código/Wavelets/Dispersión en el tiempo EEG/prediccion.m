@@ -5,7 +5,7 @@
 %load('caracteristicas.mat');
 %load('modelosEntrenados.mat');
 
-cantCanal = 8;
+cantCanal = 2;
 record = data{2,12};
 label = record(66,:);
 
@@ -246,30 +246,43 @@ for cc = 1:cantCanal
   
 end
 clasLearn2 = [caracteristicas, etiquetas(:,1)];
-
+%% PCA
 % reduced = pca(caracteristicas');
 % yfitL = trainedModelNBG.predictFcn(reduced);
 
-yfitL = trainedModelLn.predictFcn(clasLearn2(:,1:end-1));
-yfitS = trainedModelSVM3.predictFcn(clasLearn2(:,1:end-1));
+%% Clasificador Binario
+clasLearn3 = [];
+for jj=1:size(clasLearn2,1)
+    if(clasLearn2(jj,end)==0)
+         clasLearn3 = [clasLearn3; clasLearn2(jj,:)];
+    elseif(clasLearn2(jj,end)==1)  
+         clasLearn3 = [clasLearn3; clasLearn2(jj,:)];
+    end
+    
+end
 
+%% Prediccion
 
+%yfitL = trainedModelLn.predictFcn(clasLearn3(:,1:end-1));
+yfitS = trainedModelSVM3.predictFcn(clasLearn3(:,1:end-1));
+
+% 
 figure(1); clf;
-s = confusionchart(clasLearn2(:,end),yfitS);
+s = confusionchart(clasLearn3(:,end),yfitS);
 s.Title = 'Matriz de confusión SVM grado 3';
 s.RowSummary = 'row-normalized';
 s.ColumnSummary = 'column-normalized';
-
-figure(2); clf;
-L = confusionchart(clasLearn2(:,end),yfitL)
-L.Title = 'Matriz de confusión Discriminante Lineal';
-L.RowSummary = 'row-normalized';
-L.ColumnSummary = 'column-normalized';
-
-yfitK = trainedModelKNN.predictFcn(clasLearn2(:,1:end-1));
-
-figure(3); clf;
-L = confusionchart(clasLearn2(:,end),yfitK)
-L.Title = 'Matriz de confusión KNN';
-L.RowSummary = 'row-normalized';
-L.ColumnSummary = 'column-normalized';
+% 
+% figure(2); clf;
+% L = confusionchart(clasLearn3(:,end),yfitL)
+% L.Title = 'Matriz de confusión Discriminante Lineal';
+% L.RowSummary = 'row-normalized';
+% L.ColumnSummary = 'column-normalized';
+% 
+% yfitK = trainedModelKNN.predictFcn(clasLearn3(:,1:end-1));
+% 
+% figure(3); clf;
+% L = confusionchart(clasLearn3(:,end),yfitK)
+% L.Title = 'Matriz de confusión KNN';
+% L.RowSummary = 'row-normalized';
+% L.ColumnSummary = 'column-normalized';
