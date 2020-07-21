@@ -78,6 +78,7 @@
 cantCanal = 2;
 record = data{2,11};%11
 label = record(66,:);
+record(65:end,:)=[];
 
 caracteristicas = [];
 etiquetas = [];
@@ -333,4 +334,21 @@ end
 % % 
 % % clasLearn3 = [reduced, etiquetas(:,1)];% No funciona con reduced' 66% de rendimiento max
 % % %con reduced si tiene 91% de rendimiento pero malas predicciones
+
+%y=[dataOrd(1,:),dataOrd(2,:),dataOrd(3,:)];
+
+
+
+% figure(1); clf
+% plot(y);
+% title('señal capturada completa');
+
+Fs=160;
+win=4200;%500
+Tn=4100;%500
+ga=1.5; %Entre 1.1 y 2
+for rr=1:64
+  y=record(rr,1:2000);
+  es = detecta_EMG(y,Fs,win,Tn,ga,2);
+end
 
