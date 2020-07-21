@@ -20,10 +20,12 @@ data_n = [];         %array para almacenar datos filtro notch
 v = 0;               
 s = 0;               %bandera inicio ciclo 
 
+F_pb = filtroPasaBandasML(srate,50,150);   %Diseñar filtro pasa bandas         
+F_notch = filtroStopBandML(srate);         %Diseñar filtro notch 
 
 promp = 'Presiona 0 + enter para inciar';
 x = input(promp)                           %Recibir dato del usuario para inciar
-fwrite(pserial,107,'uint8');               %Iniciar el env�o de datos de arduino
+fwrite(pserial,107,'uint8');               %Iniciar el envío de datos de arduino
 tic
 while s == 0;
     v = fscanf(pserial,'%d');                   %leer datos puerto serial
@@ -36,11 +38,9 @@ while s == 0;
         cont = cont +1;                             %aumentar contador
         if(cont == (m+1))                           %evaluar longitud del contador
             toc
-            F_pb = filtroPasaBandasML;              
-            F_notch = filtroStopBandML;
             data_f = filter(F_pb, data_c);          %aplicar filtro pasa bandas
             data_n = filter(F_notch, data_f);       %aplicar filtro notch
-            save ('se�al.mat', 'data_n');           %almacenar la se�al filtrada en un .mat
+            save ('señal.mat', 'data_n');           %almacenar la señal filtrada en un .mat
             x = 1;                                  %detener el ciclo
         end
     end
