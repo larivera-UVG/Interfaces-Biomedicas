@@ -374,11 +374,11 @@ clasLearn4 = [totZC',totMav',bP',curtos',etiquetas(:,1)];
 clasTrainZ = clasLearn4(1:242,:);
 clasPredZ = clasLearn4(243:end,:);
 
-% yfitS = trainedModelSVM3.predictFcn(clasPredB(:,1:end-1));
-% 
-% 
-% figure(1); clf;
-% s = confusionchart(clasPredB(:,end),yfitS);
-% s.Title = 'Matriz de confusión SVM grado 3';
-% s.RowSummary = 'row-normalized';
-% s.ColumnSummary = 'column-normalized';
+yfitS = trainedModelSVM3.predictFcn(clasPredB(:,1:end-1));
+
+
+figure(1); clf;
+s = confusionchart(clasPredB(:,end),yfitS);
+s.Title = 'Matriz de confusión SVM grado 3';
+s.RowSummary = 'row-normalized';
+s.ColumnSummary = 'column-normalized';
