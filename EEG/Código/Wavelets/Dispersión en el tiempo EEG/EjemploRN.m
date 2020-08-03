@@ -12,9 +12,10 @@
 
 
 %% Todos los datos
-X_input = scat_features';
-        
-Xtarget = labelRn';
+% X_input = scat_features';
+%         
+% Xtarget = labelRn';
+
 
 % Ejemplo de una Red Neuronal
 %  Diseño e Innovación de Ingeniería 1
@@ -100,12 +101,13 @@ view(net)
 %     
 
 %% Probar datos ordenados
-xs_prueba = clasPredZ(:,1:end-1)'; % 10 datos al azar
-ys_prueba = net(xs_prueba);
-clases_prueba = vec2ind(ys_prueba); % contiene las etiquetas asignadas
+% xs_prueba = clasPredZ(:,1:end-1)'; % 10 datos al azar
+% ys_prueba = net(xs_prueba);
+% clases_prueba = vec2ind(ys_prueba); % contiene las etiquetas asignadas
+% 
+% figure(1); clf;
+% s = confusionchart(labelWv(243:end,:),clases_prueba);
+% s.Title = 'Matriz de confusión RN';
+% s.RowSummary = 'row-normalized';
+% s.ColumnSummary = 'column-normalized';
 
-figure(1); clf;
-s = confusionchart(labelWv(243:end,:),clases_prueba);
-s.Title = 'Matriz de confusión RN';
-s.RowSummary = 'row-normalized';
-s.ColumnSummary = 'column-normalized';
