@@ -9,9 +9,9 @@
 % 
 % %clear all;
 % 
-[filename,pathname] = uigetfile({'*.*';'*.edf'},'Pick edf File');
+%[filename,pathname] = uigetfile({'*.*';'*.edf'},'Pick edf File');
 
-pathname = 'C:\Users\rodri\Downloads\Semestre 9 UVG\DiseñoIngenieria1\Base de Datos\eeg-motor-movementimagery-dataset-1.0.0\files\S001\';
+pathname = 'C:\Users\rodri\Downloads\Semestre 10 UVG\Semestre 9\DiseñoIngenieria1\Tesis RRG\Base de Datos\eeg-motor-movementimagery-dataset-1.0.0\files\S001\';
 % Varianza, amplitud maxima y curtosis
 data = cell(2,10);
 data{1,1}='Etiqueta 1';
@@ -41,7 +41,7 @@ for ii=1:3
 
     if (ii == 1)
         filename = 'S001R03.edf';
-        
+
     elseif (ii == 2)
         filename = 'S001R07.edf';
     else
@@ -125,7 +125,7 @@ data{2,3}=XtestZC11;
 data{2,4}=XtestZC21;
 data{2,5}=XtestMAV11;
 data{2,6}=XtestMAV21;
-data{2,7}=XtestVAR11;
+data{2,7}=XtestVAR11;z
 data{2,8}=XtestVAR21;
 data{2,9}=XtestKUR11;
 data{2,10}=XtestKUR21;

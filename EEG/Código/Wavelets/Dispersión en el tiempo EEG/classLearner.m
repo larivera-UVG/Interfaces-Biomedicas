@@ -86,21 +86,21 @@ etiquetas = [];
 for cc = 1:cantCanal
     
     if (cc == 1)
-        canal = record(9,:);%9
+        canal = record(23,:);%C3
     elseif (cc == 2)
-        canal = record(10,:);
+        canal = record(51,:);%C1
     elseif (cc == 3)
-        canal = record(14,:);
+        canal = record(58,:);%C6
     elseif (cc == 4)
-        canal = record(15,:);
+        canal = record(15,:);%Cp5
     elseif (cc == 5)
-        canal = record(43,:);
+        canal = record(43,:);%T9
     elseif (cc == 6)
-        canal = record(44,:);
+        canal = record(44,:);%T10
     elseif (cc == 7)
-        canal = record(58,:);
+        canal = record(58,:);%Poz
     elseif (cc == 8)
-        canal = record(59,:);
+        canal = record(59,:);%Po4
     end
 
 
@@ -295,19 +295,21 @@ for cc = 1:cantCanal
     %% class learner
     %clasLearn2 = [scat_features, allLabels_scat];
     largo = length(allLabels_scat);
-    labelWv = zeros(largo,1);
+    labelWv = zeros(largo,1); %Etiquetas para wavelets
+    labelRn = zeros(largo, 3); %Etiquetas para redes neuronales
     for k = 1:largo
 
           if(strcmp(allLabels_scat(k), 'T0'))
               labelWv(k) = 0;
+              labelRn(k,1) = 1;
 
           elseif(strcmp(allLabels_scat(k), 'T1'))
               labelWv(k) = 1;    
-
+              labelRn(k,2) = 1;
 
           elseif(strcmp(allLabels_scat(k), 'T2'))
                labelWv(k) = 2;    
-
+               labelRn(k,3) = 1;
           end
 
 
@@ -316,7 +318,10 @@ for cc = 1:cantCanal
     etiquetas = [etiquetas, labelWv];
   
 end
+%labelRn = labelRn';
 clasLearn2 = [caracteristicas, etiquetas(:,1)]; %Features de wavelets
+clasTrain = clasLearn2(1:242,:);
+clasPred = clasLearn2(243:end,:);
 %% Clasificador Binario
 clasLearn3 = [];
 for jj=1:size(clasLearn2,1)
@@ -327,7 +332,8 @@ for jj=1:size(clasLearn2,1)
     end
     
 end
-
+clasTrainB = clasLearn3(1:187,:);
+clasPredB = clasLearn3(188:end,:);
 %% PCA 
 
 % % reduced = pca(caracteristicas');
@@ -343,12 +349,36 @@ end
 % plot(y);
 % title('señal capturada completa');
 
-Fs=160;
-win=4200;%500
-Tn=4100;%500
-ga=1.5; %Entre 1.1 y 2
-for rr=1:64
-  y=record(rr,1:2000);
-  es = detecta_EMG(y,Fs,win,Tn,ga,2);
+%% Ejemplo codigo Luis detectar actividad
+% Fs=160;
+% win=4200;%500
+% Tn=4100;%500
+% ga=1.5; %Entre 1.1 y 2
+% for rr=1:64
+%   y=record(rr,1:2000);
+%   es = detecta_EMG(y,Fs,win,Tn,ga,2);
+% end
+totZC = zeros(1,size(clasLearn2,1));
+totMav = zeros(1,size(clasLearn2,1));
+bP = zeros(1,size(clasLearn2,1));
+curtos = zeros(1,size(clasLearn2,1));
+
+for i=1:size(clasLearn2,1)
+    x = clasLearn2(i,:);
+    [totZC(i), totMav(i)] = metricas(x, 0, mean(x));
+    bP(i) = bandpower(x);
+    curtos(i) = kurtosis(x);
 end
 
+clasLearn4 = [totZC',totMav',bP',curtos',etiquetas(:,1)];
+clasTrainZ = clasLearn4(1:242,:);
+clasPredZ = clasLearn4(243:end,:);
+
+yfitS = trainedModelSVM3.predictFcn(clasPredB(:,1:end-1));
+
+
+figure(1); clf;
+s = confusionchart(clasPredB(:,end),yfitS);
+s.Title = 'Matriz de confusión SVM grado 3';
+s.RowSummary = 'row-normalized';
+s.ColumnSummary = 'column-normalized';

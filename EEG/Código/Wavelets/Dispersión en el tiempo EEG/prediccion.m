@@ -15,11 +15,11 @@ etiquetas = [];
 for cc = 1:cantCanal
     
     if (cc == 1)
-        canal = record(9,:);%9
+        canal = record(23,:);%9
     elseif (cc == 2)
-        canal = record(10,:);
+        canal = record(51,:);
     elseif (cc == 3)
-        canal = record(14,:);
+        canal = record(58,:);
     elseif (cc == 4)
         canal = record(15,:);
     elseif (cc == 5)
@@ -246,29 +246,31 @@ for cc = 1:cantCanal
   
 end
 clasLearn2 = [caracteristicas, etiquetas(:,1)];
+clasTrain = clasLearn2(1:242,:);
+clasPred = clasLearn2(243:end,:);
 %% PCA
 % reduced = pca(caracteristicas');
 % yfitL = trainedModelNBG.predictFcn(reduced);
 
 %% Clasificador Binario
-clasLearn3 = [];
-for jj=1:size(clasLearn2,1)
-    if(clasLearn2(jj,end)==0)
-         clasLearn3 = [clasLearn3; clasLearn2(jj,:)];
-    elseif(clasLearn2(jj,end)==1)  
-         clasLearn3 = [clasLearn3; clasLearn2(jj,:)];
-    end
-    
-end
+% clasLearn3 = [];
+% for jj=1:size(clasLearn2,1)
+%     if(clasLearn2(jj,end)==0)
+%          clasLearn3 = [clasLearn3; clasLearn2(jj,:)];
+%     elseif(clasLearn2(jj,end)==1)  
+%          clasLearn3 = [clasLearn3; clasLearn2(jj,:)];
+%     end
+%     
+% end
 
 %% Prediccion
 
 %yfitL = trainedModelLn.predictFcn(clasLearn3(:,1:end-1));
-yfitS = trainedModelSVM3.predictFcn(clasLearn3(:,1:end-1));
+yfitS = trainedModelSVM3.predictFcn(clasLearn2(:,1:end-1));
 
-% 
+
 figure(1); clf;
-s = confusionchart(clasLearn3(:,end),yfitS);
+s = confusionchart(clasLearn2(:,end),yfitS);
 s.Title = 'Matriz de confusión SVM grado 3';
 s.RowSummary = 'row-normalized';
 s.ColumnSummary = 'column-normalized';
@@ -286,3 +288,12 @@ s.ColumnSummary = 'column-normalized';
 % L.Title = 'Matriz de confusión KNN';
 % L.RowSummary = 'row-normalized';
 % L.ColumnSummary = 'column-normalized';
+
+% yfitS = trainedModelSVM3.predictFcn(clasPred(:,1:end-1));
+% 
+% 
+% figure(1); clf;
+% s = confusionchart(clasPred(:,end),yfitS);
+% s.Title = 'Matriz de confusión SVM grado 3';
+% s.RowSummary = 'row-normalized';
+% s.ColumnSummary = 'column-normalized';
