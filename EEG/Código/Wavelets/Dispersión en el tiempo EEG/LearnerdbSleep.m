@@ -71,91 +71,32 @@
 % % After you unzip the ECGData.zip file, load the data into MATLAB.
 % load(fullfile(tempdir,'ECGData','ECGData.mat'))
 
- clear all;
- load('caracteristicas.mat');
-
 %%
-cantCanal = 2;
-record = data{2,11};%11
-label = record(66,:);
-record(65:end,:)=[];
-
-caracteristicas = [];
-etiquetas = [];
-    
+cantCanal = 4;
+ 
 for cc = 1:cantCanal
+      if cc==1
+         caracteristicas=[];
+         etiquetas=[]; 
+      end
+
+   etiq = [];
+    for i=1:size1
+       etiq=[etiq;"T0"]; 
+    end
+    for i=1:size3
+       etiq=[etiq;"T1"];  
+    end
+    for i=1:size4
+       etiq=[etiq;"T2"];  
+    end
     
-    if (cc == 1)
-        canal = record(9,:);%C3
-    elseif (cc == 2)
-        canal = record(10,:);%C1
-    elseif (cc == 3)
-        canal = record(14,:);%C6
-    elseif (cc == 4)
-        canal = record(15,:);%Cp5
-    elseif (cc == 5)
-        canal = record(43,:);%T9
-    elseif (cc == 6)
-        canal = record(44,:);%T10
-    elseif (cc == 7)
-        canal = record(58,:);%Poz
-    elseif (cc == 8)
-        canal = record(59,:);%Po4
-    end
-
-
-    fil = 1;
-    dataOrd = [];
-    labelOrd = [0];
-    labelAnt = 0;
-    col = 0;
-    for i=1:19920
-        if (label(i) ~= labelAnt)
-            %labelOrd(columna)=label(i);
-            fil = fil+1;
-            labelOrd(fil)=label(i);
-            col = 0;   
-        end
-        col = col+1;
-                if (label(i) == 0)
-                    dataOrd(fil,col)=canal(i);
-
-                elseif (label(i) == 1)
-                    dataOrd(fil,col)=canal(i);
-
-                elseif (label(i) == 2)
-                    dataOrd(fil,col)=canal(i);
-                end
-
-                labelAnt = label(i);
-
-    end
-
-    eti0=[];
-    eti1=[];
-    eti2=[];
-    dat0=[];
-    dat1=[];
-    dat2=[];
-    for j=1:30
-                if (labelOrd(1,j) == 0)
-                    eti0=[eti0;"T0"];
-                    dat0=[dat0;dataOrd(j,:)];
-
-                elseif (labelOrd(1,j) == 1)
-                    eti1=[eti1;"T1"];
-                    dat1=[dat1;dataOrd(j,:)];
-                elseif (labelOrd(1,j) == 2)
-                    eti2=[eti2;"T2"];
-                    dat2=[dat2;dataOrd(j,:)];
-                end
-    end
-
+    data = [Raw{cc,1}';Raw{cc,3}';Raw{cc,4}'];
+    
     EEGData = {};
-    EEGData.Data = [dat0;dat1;dat2];
-    EEGData.Labels = [eti0;eti1;eti2];
+    EEGData.Data = data;
+    EEGData.Labels = etiq;
 
-    clasLearn = [dataOrd,labelOrd'];
     %%
     % |ECGData| is a structure array with two fields: |Data| and |Labels|.
     % |Data| is a 162-by-65536 matrix where each row is an ECG recording
@@ -209,7 +150,7 @@ for cc = 1:cantCanal
     % 8 wavelets per octave in the first filter bank and 1 wavelet per octave
     % in the second filter bank. The invariance scale is set to 150 seconds.
     N = size(EEGData.Data,2);
-    sf = waveletScattering('SignalLength',N,'SamplingFrequency',160); %se quito Invariance Scale
+    sf = waveletScattering('SignalLength',N,'SamplingFrequency',100); %se quito Invariance Scale
     %%
     % You can visualize the wavelet filters in the two filter banks with the
     % following.
@@ -297,6 +238,7 @@ for cc = 1:cantCanal
     largo = length(allLabels_scat);
     labelWv = zeros(largo,1); %Etiquetas para wavelets
     labelRn = zeros(largo, 3); %Etiquetas para redes neuronales
+   
     for k = 1:largo
 
           if(strcmp(allLabels_scat(k), 'T0'))
@@ -320,8 +262,8 @@ for cc = 1:cantCanal
 end
 %labelRn = labelRn';
 clasLearn2 = [caracteristicas, etiquetas(:,1)]; %Features de wavelets
-clasTrain = clasLearn2(1:242,:);
-clasPred = clasLearn2(243:end,:);
+clasTrain = clasLearn2(1:4824,:);
+clasPred = clasLearn2(4825:end,:);
 %% Clasificador Binario
 clasLearn3 = [];
 for jj=1:size(clasLearn2,1)
@@ -332,7 +274,8 @@ for jj=1:size(clasLearn2,1)
     end
     
 end
-
+clasTrainB = clasLearn3(1:187,:);
+clasPredB = clasLearn3(188:end,:);
 %% PCA 
 
 % % reduced = pca(caracteristicas');
