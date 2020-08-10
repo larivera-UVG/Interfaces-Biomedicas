@@ -10,8 +10,8 @@ fopen(pserial);
 srate = 1000;     %Frec. muestreo
 t_inicio = 1000;  %Tiempo inicial sin mov. en ms
 t = 1;            %Tiempo total
-t_m = t*0.85;     %Tiempo mov.
-t_r = t*0.15;     %Tiempo sin mov.
+t_m = t*0.95;     %Tiempo mov.
+t_r = t*0.05;     %Tiempo sin mov.
 m = t*srate;      %No. muestras totales
 m_m = t_m*srate;  %No. muestras mov.
 m_r = t_r*srate;  %No. muestras sin mov.
@@ -29,8 +29,8 @@ data_n = [];            %Array para almacenar datos filtro notch
 
 almacenar = zeros(grab,m);                 %Almacenar todas las corridas
 
-F_pb = filtroPasaBandasML(srate,50,200);   %Diseñar filtro pasa bandas         
-F_notch = filtroStopBandML(srate);         %Diseñar filtro notch 
+F_pb = filtro_pasa_banda(srate,20,450);    %Diseñar filtro pasa banda       
+F_notch = filtro_rechaza_banda(srate);     %Diseñar filtro rechaza banda
 
 %Inicializar variables
 v = 0;    
@@ -53,7 +53,8 @@ while cont_f < grab
     
     if volt > (th + ga) && b_act == 0      
         %Activar bandera de inicio de actividad
-        b_act = 1
+        b_act = 1;
+        volt
     end
     
     if b_act == 1                                                   
@@ -65,7 +66,7 @@ while cont_f < grab
             data_n = filter(F_notch, data_f);                       %Aplicar filtro notch
             cont = 1;                                               %Reiniciar contador
             cont_f = cont_f + 1;                                    %Aumentar contador para no. de grabaciones
-            b_act = 0                                               %Reiniciar bandera de actividad
+            b_act = 0;                                              %Reiniciar bandera de actividad
             almacenar(cont_f,:) = data_n;                           %Almacenar todas las corridas 
             h.YData = data_n;                                       %Actualizar gráfica
             drawnow limitrate

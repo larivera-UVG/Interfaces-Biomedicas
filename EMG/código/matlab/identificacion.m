@@ -15,7 +15,5 @@ while cont_s < (t + 1)
 end
 
 th = max(abs(data_s));
-disp("DONE");
-
 end
 
