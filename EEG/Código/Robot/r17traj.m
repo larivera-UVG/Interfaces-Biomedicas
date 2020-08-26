@@ -152,7 +152,7 @@ Qtot = cell(1,5);
             %trajectory de Peter Corke
             if (i>1)
                 [qf,qfd,qfdd]=jtraj(qp(i-1,:), qp(i,:), t(:,i-1));
-                %Solamente se almacenan las posiciones en la matriz Q, a pesar
+                %Solamente se almace nan las posiciones en la matriz Q, a pesar
                 %que se tiene velocidad y aceleracion pero no se usan en este
                 %caso.
                 Q = [Q;qf];
