@@ -94,9 +94,10 @@ Q2 = flipud(Q1);%jtraj(q1, q0, t);
 Q = [Q1;Q2];
      
 Qpuma{1,s}=Q;
-
+clf;
+p560.plot3d(Q);
 end
-
-p560.plot3d((Qpuma{1,2}));
-close(figure(1))
+% clf;
+% p560.plot3d((Qpuma{1,2}));
+%close(figure(1))
 %p560.plot3d(Q);

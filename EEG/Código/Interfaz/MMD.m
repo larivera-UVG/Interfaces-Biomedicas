@@ -4,11 +4,11 @@
 % Con la variable subwind se define el número de subépocas
 % -------------------------------------------------------------------------
 
-function [mmd,a,b,c,d,e] = MMD (x)
+function [mmd,a,b,c,d,e] = MMD (x,nDatos)
 
 L = length(x);
 
-subwind = 30;
+subwind = nDatos/100;%30
 lista = zeros(1,subwind);
 l_indmax = zeros(1,subwind);
 l_indmin = zeros(1,subwind);
