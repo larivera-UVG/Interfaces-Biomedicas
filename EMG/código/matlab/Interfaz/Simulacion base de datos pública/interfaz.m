@@ -24,7 +24,7 @@ function varargout = interfaz(varargin)
 
 % Edit the above text to modify the response to help interfaz
 
-% Last Modified by GUIDE v2.5 24-Aug-2020 19:14:28
+% Last Modified by GUIDE v2.5 27-Aug-2020 23:06:07
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -202,14 +202,19 @@ end
 
 % --- Executes on selection change in robot.
 function robot_Callback(hObject, eventdata, handles)
-global Robot;
-global select_rob;
+global Robot
+global Q_traj
+global select_rob
 select_rob = 0;
 
 contents = cellstr(get(hObject,'String'));
 value = contents{get(hObject,'Value')};
 switch value
     case 'R17'
+        load 'R17_traj.mat'
+        set(handles.uibuttongroup1, 'Visible', 'of');
+        set(handles.uibuttongroup2, 'Visible', 'of');
+        set(handles.uibuttongroup3, 'Visible', 'on');
         select_rob = 1;
         %Dimensiones robot
         q0 = zeros(1,6);
@@ -228,6 +233,10 @@ switch value
         L6 = Revolute('d', d6, 'a', a6, 'alpha', alpha6, 'offset', theta6);
         Robot = SerialLink([L1,L2,L3,L4,L5,L6], 'name', 'R17');
     case 'Scara'
+        load 'SCARA_traj.mat'
+        set(handles.uibuttongroup1, 'Visible', 'of');
+        set(handles.uibuttongroup2, 'Visible', 'on');
+        set(handles.uibuttongroup3, 'Visible', 'of');
         select_rob = 2;
         %Dimensiones robot
         q0 = zeros(1,4);
@@ -240,6 +249,10 @@ switch value
         L4 = Link([0, 0, 0, pi, 0]);
         Robot = SerialLink([L1,L2,L3,L4], 'name', 'scara'); 
     case '2 juntas'
+        load 'Rsimple_traj.mat'
+        set(handles.uibuttongroup1, 'Visible', 'on');
+        set(handles.uibuttongroup2, 'Visible', 'of');
+        set(handles.uibuttongroup3, 'Visible', 'of');
         select_rob = 3;
         q0 = zeros(1,2);
         a1 = 1; a2 = 1;
@@ -268,77 +281,87 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
-
-% --- Executes on button press in radiobutton7.
-function radiobutton7_Callback(hObject, eventdata, ~)
-% hObject    handle to radiobutton7 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of radiobutton7
-
-
 % --- Executes when selected object is changed in uibuttongroup1.
 function uibuttongroup1_SelectionChangedFcn(hObject, eventdata, handles) 
 global Robot
 global select_rob
-global stop
-stop = 1;
+global Q_traj
 
-if (select_rob == 1)
+if (select_rob == 3)
     switch(get( eventdata.NewValue,'Tag'))
         case 'radiobutton2'
-            q0 = zeros(1,6);
+            Q = zeros(1,2);
         case 'radiobutton3'
-            q0 = [0,0,pi/2,pi/2,0,0]; 
+            Q = Q_traj{1,1};     
         case 'radiobutton4'
-            q0 = [0,0,pi/2,0,0,0];
+            Q = Q_traj{1,2};     
         case 'radiobutton5'
-            q0 = [0,0,-pi/2,0,0,0]; 
+            Q = Q_traj{1,3};    
         case 'radiobutton6'
-            q0 = [0,0,0,pi/2,0,0];
+            Q = Q_traj{1,4};
         case 'radiobutton7'
-            q0 = [0,0,0,-pi/2,0,0];
-    end
-elseif(select_rob == 2)  
-    switch(get( eventdata.NewValue,'Tag'))
-        case 'radiobutton2'
-            q0 = zeros(1,4);
-        case 'radiobutton3'
-            q0 = [0,pi/2,0,0]; 
-        case 'radiobutton4'
-            q0 = [0,-pi/2,0,0];
-        case 'radiobutton5'
-            q0 = [pi/2,0,0,0]; 
-        case 'radiobutton6'
-            q0 = [-pi/2,0,0,0];
-        case 'radiobutton7'
-            q0 = [0,-pi/2,1,0];
-    end
-elseif(select_rob == 3)
-    switch(get( eventdata.NewValue,'Tag'))
-        case 'radiobutton2'
-            q0 = zeros(1,2);
-        case 'radiobutton3'
-            q0 = [0,pi/2]; 
-        case 'radiobutton4'
-            q0 = [0,-pi/2];
-        case 'radiobutton5'
-            q0 = [pi/2,0]; 
-        case 'radiobutton6'
-            q0 = [-pi/2,0];
-        case 'radiobutton7'
-            q0 = [0,pi/4];
+            Q = Q_traj{1,5};
     end
 end
 %axes(handles.graf_rob);
 figure(1);
-plot(Robot,q0);
+plot(Robot,Q);
+
+% --- Executes when selected object is changed in uibuttongroup3.
+function uibuttongroup3_SelectionChangedFcn(hObject, eventdata, handles)
+global Robot
+global select_rob
+global Q_traj
+
+if (select_rob == 1)
+    switch(get( eventdata.NewValue,'Tag'))
+        case 'radiobutton14'
+            Q = zeros(1,6);
+        case 'radiobutton15'
+            Q = Q_traj{1,1};   
+        case 'radiobutton16'
+            Q = Q_traj{1,2};  
+        case 'radiobutton17'
+            Q = Q_traj{1,3};   
+        case 'radiobutton18'
+            Q = Q_traj{1,4};  
+        case 'radiobutton19'
+            Q = Q_traj{1,5};  
+    end
+end
+figure(1);
+plot(Robot,Q);
+
+% --- Executes when selected object is changed in uibuttongroup2.
+function uibuttongroup2_SelectionChangedFcn(hObject, eventdata, handles)
+global Robot
+global select_rob
+global Q_traj
+
+if (select_rob == 2)
+    switch(get( eventdata.NewValue,'Tag'))
+        case 'radiobutton8'
+            Q = zeros(1,4);
+        case 'radiobutton9'
+            Q = Q_traj{1,1};
+        case 'radiobutton10'
+            Q = Q_traj{1,2};
+        case 'radiobutton11'
+            Q = Q_traj{1,3}; 
+        case 'radiobutton12'
+            Q = Q_traj{1,4};
+        case 'radiobutton13'
+            Q = Q_traj{1,5};
+    end
+end
+figure(1);
+plot(Robot,Q);
 
 % --- Executes on button press in start.
 function start_Callback(hObject, eventdata, handles)
 global caracteristicas
 global select_rob
+global Q_traj
 global Robot
 global stop
 stop = 0;
@@ -396,52 +419,20 @@ while stop == 0
         clase_prueba = vec2ind(y_prueba);   % contiene la etiqueta asignada
 
         n = clase_prueba;
-        if (select_rob == 1)
-            switch n
-                case 1
-                    q0 = zeros(1,6);
-                case 2
-                    q0 = [0,0,pi/2,pi/2,0,0]; 
-                case 3
-                    q0 = [0,0,pi/2,0,0,0];
-                case 4
-                    q0 = [0,0,-pi/2,0,0,0]; 
-                case 5
-                    q0 = [0,0,0,pi/2,0,0];
-                case 6
-                    q0 = [0,0,0,-pi/2,0,0];
-            end
-        elseif(select_rob == 2)  
-            switch n
-                case 1
-                    q0 = zeros(1,4);
-                case 2
-                    q0 = [0,pi/2,0,0]; 
-                case 3
-                    q0 = [0,-pi/2,0,0];
-                case 4
-                    q0 = [pi/2,0,0,0]; 
-                case 5
-                    q0 = [-pi/2,0,0,0];
-                case 6
-                    q0 = [0,-pi/2,1,0];
-            end
-        elseif(select_rob == 3)
-            switch n
-                case 1
-                    q0 = zeros(1,2);
-                case 2
-                    q0 = [0,pi/2]; 
-                case 3
-                    q0 = [0,-pi/2];
-                case 4
-                    q0 = [pi/2,0]; 
-                case 5
-                    q0 = [-pi/2,0];
-                case 6
-                    q0 = [0,pi/4];
-            end
-        end
+        switch n
+            case 1
+                Q = zeros(1,2);
+            case 2
+                Q = Q_traj{1,1};
+            case 3
+                Q = Q_traj{1,2};
+            case 4
+                Q = Q_traj{1,3};
+            case 5
+                Q = Q_traj{1,4};
+            case 6
+                Q = Q_traj{1,5};
+        end        
         
         if caracteristicas == 1
            set(handles.mav,'String',v_mav(i,1));  
@@ -451,8 +442,8 @@ while stop == 0
         end
       set(handles.num,'String',n);
       figure(1); 
-      plot(Robot,q0);
-      pause(0.1);
+      plot(Robot,Q);
+      %pause(0.1);
     end
 end
 
