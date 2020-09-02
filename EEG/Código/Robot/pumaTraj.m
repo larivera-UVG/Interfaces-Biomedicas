@@ -100,4 +100,4 @@ end
 % clf;
 % p560.plot3d((Qpuma{1,2}));
 %close(figure(1))
-%p560.plot3d(Q);
+%p560.teach();
