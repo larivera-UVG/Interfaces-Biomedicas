@@ -1,4 +1,6 @@
 % =========================================================================
+%CÓDIGO PARA GENERAR LAS TRAYECTORIAS DEL LOS ROBOTS
+% =========================================================================
 % SIMULACIÓN DEL R17
 %Parámetros de Denavit-Hartenberg
 q0 = zeros(1,6);
@@ -15,20 +17,20 @@ L2 = Revolute('d',-355, 'a', a2, 'alpha', pi/2,'offset',-pi/2);
 L3 = Revolute('d', 0 , 'a', a3, 'alpha',0 ,'offset',-pi/2);
 L4 = Revolute('d', 0, 'a', a4, 'alpha', 0,'offset',0);
 L5 = Revolute('d', 0, 'a', a5, 'alpha', -pi/2,'offset',-pi/2 );
-L6 = Revolute('d', 0, 'a', a6, 'alpha', 0,'offset',0 );
+L6 = Revolute('d', 0, 'a', a6, 'alpha',  0,'offset',0 );
 
 R17 = SerialLink([L1,L2,L3,L4,L5,L6], 'name', 'R17');
 % Transformación de Base (roto -90 en x)
 R17.base = transl(0, 0, d2)*trotx(-pi/2);
-%teach(R17, q0,'zoom',1);
+teach(R17, q0,'zoom',1);
 %% Robot 2 eslabones
 a1 = 1; a2 = 1;
 L1 = Revolute('d', 0, 'a', a1, 'alpha', pi/2);
 L2 = Revolute('d', 0, 'a', a2, 'alpha', 0);
-Robot = SerialLink([L1,L2], 'name', 'two link');
+Robot = SerialLink([L1,L2], 'name', '2 juntas');
 
 q0 = zeros(1,2);
-%teach(Robot, q0,'zoom',1);
+teach(Robot, q0,'zoom',1);
 
 %% SCARA
 %Dimensiones robot
@@ -42,7 +44,7 @@ L4 = Link([0, 0, 0, pi, 0]);
 Robot = SerialLink([L1,L2,L3,L4], 'name', 'scara'); 
 
 q0 = zeros(1,4);
-%teach(Robot, q0,'zoom',1);
+teach(Robot, q0,'zoom',1);
 
 %% TRAYECTORIA ROBOT 2 ESLABONES
 Q_traj = cell(1,5);
@@ -51,8 +53,10 @@ Q_traj = cell(1,5);
 % ocurra durante 0.25s con tiempo de muestreo de 50ms
 t = 0:0.1:0.25; 
 t = t';
-for s=1:5
-    if s==1
+for s=0:5
+    if s==0
+        q1 = [-pi/4,pi/4];
+    elseif s == 1
         q1 = [0,pi/2]; 
     elseif s==2
         q1 = [0,-pi/2];
@@ -65,22 +69,21 @@ for s=1:5
 end
 
 Q1 = jtraj(q0, q1, t);
-%Q2 = flipud(Q1);%jtraj(q1, q0, t);
-%Q = [Q1;Q2];
      
-Q_traj{1,s}=Q1;
+Q_traj{1,s+1}=Q1;
 
 end
-
+%save("Rsimple_traj.mat","Q_traj")
 %% Trayectoria SCARA
 Q_traj = cell(1,5);
 
-% Se describe el vector de tiempo para la trayectoria. Se desea que esta
-% ocurra durante 0.25s con tiempo de muestreo de 50ms
+% Se describe el vector de tiempo para la trayectoria. 
 t = 0:0.1:0.25; 
 t = t';
-for s=1:5
-    if s==1
+for s=0:5
+    if s==0
+        q1 = [0,-pi/4,0,0];
+    elseif s==1
         q1 = [0,pi/2,0,0];  
     elseif s==2
         q1 = [0,-pi/2,0,0];
@@ -93,22 +96,21 @@ for s=1:5
 end
 
 Q1 = jtraj(q0, q1, t);
-%Q2 = flipud(Q1);%jtraj(q1, q0, t);
-%Q = [Q1;Q2];
      
-Q_traj{1,s}=Q1;
+Q_traj{1,s+1}=Q1;
 
 end
-
+%save("SCARA_traj.mat","Q_traj")
 %% Trayectoria R17
 Q_traj = cell(1,5);
 
-% Se describe el vector de tiempo para la trayectoria. Se desea que esta
-% ocurra durante 0.25s con tiempo de muestreo de 50ms
+% Se describe el vector de tiempo para la trayectoria. 
 t = 0:0.1:0.25; 
 t = t';
-for s=1:5
-    if s==1
+for s=0:5
+    if s==0
+        q1 = [0,0,0,pi/4,0,0]; 
+    elseif s==1 
         q1 = [0,0,pi/2,pi/2,0,0]; 
     elseif s==2
         q1 = [0,0,pi/2,0,0,0];
@@ -121,11 +123,9 @@ for s=1:5
 end
 
 Q1 = jtraj(q0, q1, t);
-%Q2 = flipud(Q1);%jtraj(q1, q0, t);
-%Q = [Q1;Q2];
      
-Q_traj{1,s}=Q1;
+Q_traj{1,s+1}=Q1;
 
 end
-
+%save("R17_traj.mat","Q_traj")
 

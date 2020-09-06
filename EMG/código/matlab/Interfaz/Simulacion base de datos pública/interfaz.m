@@ -24,7 +24,7 @@ function varargout = interfaz(varargin)
 
 % Edit the above text to modify the response to help interfaz
 
-% Last Modified by GUIDE v2.5 27-Aug-2020 23:06:07
+% Last Modified by GUIDE v2.5 04-Sep-2020 23:18:30
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -59,7 +59,11 @@ handles.output = hObject;
 
 % Initialise tabs
 handles.tabManager = TabManager( hObject );
-
+axes(handles.axes5);
+path = 'C:\Users\ferna\Desktop\R17.PNG';
+imag = imread(path);
+imshow(imag);
+axis off;
 % Set-up a selection changed function on the create tab groups
 % tabGroups = handles.tabManager.TabGroups;
 % for tgi=1:length(tabGroups)
@@ -204,6 +208,7 @@ end
 function robot_Callback(hObject, eventdata, handles)
 global Robot
 global Q_traj
+global q0
 global select_rob
 select_rob = 0;
 
@@ -211,10 +216,16 @@ contents = cellstr(get(hObject,'String'));
 value = contents{get(hObject,'Value')};
 switch value
     case 'R17'
+        axes(handles.axes5);
+        path = 'C:\Users\ferna\Desktop\R17.PNG';
+        imag = imread(path);
+        imshow(imag);
         load 'R17_traj.mat'
         set(handles.uibuttongroup1, 'Visible', 'of');
         set(handles.uibuttongroup2, 'Visible', 'of');
         set(handles.uibuttongroup3, 'Visible', 'on');
+        set(handles.text42, 'Visible', 'on');
+        set(handles.text43, 'Visible', 'of');
         select_rob = 1;
         %Dimensiones robot
         q0 = zeros(1,6);
@@ -233,10 +244,16 @@ switch value
         L6 = Revolute('d', d6, 'a', a6, 'alpha', alpha6, 'offset', theta6);
         Robot = SerialLink([L1,L2,L3,L4,L5,L6], 'name', 'R17');
     case 'Scara'
+        axes(handles.axes5);
+        path = 'C:\Users\ferna\Desktop\scara.PNG';
+        imag = imread(path);
+        imshow(imag);
         load 'SCARA_traj.mat'
         set(handles.uibuttongroup1, 'Visible', 'of');
         set(handles.uibuttongroup2, 'Visible', 'on');
         set(handles.uibuttongroup3, 'Visible', 'of');
+        set(handles.text42, 'Visible', 'of');
+        set(handles.text43, 'Visible', 'on');
         select_rob = 2;
         %Dimensiones robot
         q0 = zeros(1,4);
@@ -249,10 +266,16 @@ switch value
         L4 = Link([0, 0, 0, pi, 0]);
         Robot = SerialLink([L1,L2,L3,L4], 'name', 'scara'); 
     case '2 juntas'
+        axes(handles.axes5);
+        path = 'C:\Users\ferna\Desktop\simple.PNG';
+        imag = imread(path);
+        imshow(imag);
         load 'Rsimple_traj.mat'
         set(handles.uibuttongroup1, 'Visible', 'on');
         set(handles.uibuttongroup2, 'Visible', 'of');
         set(handles.uibuttongroup3, 'Visible', 'of');
+        set(handles.text42, 'Visible', 'of');
+        set(handles.text43, 'Visible', 'on');
         select_rob = 3;
         q0 = zeros(1,2);
         a1 = 1; a2 = 1;
@@ -290,17 +313,17 @@ global Q_traj
 if (select_rob == 3)
     switch(get( eventdata.NewValue,'Tag'))
         case 'radiobutton2'
-            Q = zeros(1,2);
+            Q = Q_traj{:,1};
         case 'radiobutton3'
-            Q = Q_traj{1,1};     
+            Q = Q_traj{:,2};     
         case 'radiobutton4'
-            Q = Q_traj{1,2};     
+            Q = Q_traj{:,3};     
         case 'radiobutton5'
-            Q = Q_traj{1,3};    
+            Q = Q_traj{:,4};    
         case 'radiobutton6'
-            Q = Q_traj{1,4};
+            Q = Q_traj{:,5};
         case 'radiobutton7'
-            Q = Q_traj{1,5};
+            Q = Q_traj{:,6};
     end
 end
 %axes(handles.graf_rob);
@@ -316,17 +339,17 @@ global Q_traj
 if (select_rob == 1)
     switch(get( eventdata.NewValue,'Tag'))
         case 'radiobutton14'
-            Q = zeros(1,6);
+            Q = Q_traj{:,1};
         case 'radiobutton15'
-            Q = Q_traj{1,1};   
+            Q = Q_traj{:,2};   
         case 'radiobutton16'
-            Q = Q_traj{1,2};  
+            Q = Q_traj{:,3};  
         case 'radiobutton17'
-            Q = Q_traj{1,3};   
+            Q = Q_traj{:,4};   
         case 'radiobutton18'
-            Q = Q_traj{1,4};  
+            Q = Q_traj{:,5};  
         case 'radiobutton19'
-            Q = Q_traj{1,5};  
+            Q = Q_traj{:,6};  
     end
 end
 figure(1);
@@ -341,17 +364,17 @@ global Q_traj
 if (select_rob == 2)
     switch(get( eventdata.NewValue,'Tag'))
         case 'radiobutton8'
-            Q = zeros(1,4);
+            Q = Q_traj{:,1};
         case 'radiobutton9'
-            Q = Q_traj{1,1};
+            Q = Q_traj{:,2};
         case 'radiobutton10'
-            Q = Q_traj{1,2};
+            Q = Q_traj{:,3};
         case 'radiobutton11'
-            Q = Q_traj{1,3}; 
+            Q = Q_traj{:,4}; 
         case 'radiobutton12'
-            Q = Q_traj{1,4};
+            Q = Q_traj{:,5};
         case 'radiobutton13'
-            Q = Q_traj{1,5};
+            Q = Q_traj{:,6};
     end
 end
 figure(1);
@@ -362,6 +385,7 @@ function start_Callback(hObject, eventdata, handles)
 global caracteristicas
 global select_rob
 global Q_traj
+global q0
 global Robot
 global stop
 stop = 0;
@@ -421,19 +445,19 @@ while stop == 0
         n = clase_prueba;
         switch n
             case 1
-                Q = zeros(1,2);
+                Q = Q_traj{:,1};
             case 2
-                Q = Q_traj{1,1};
+                Q = Q_traj{:,2};
             case 3
-                Q = Q_traj{1,2};
+                Q = Q_traj{:,3};
             case 4
-                Q = Q_traj{1,3};
+                Q = Q_traj{:,4};
             case 5
-                Q = Q_traj{1,4};
+                Q = Q_traj{:,5};
             case 6
-                Q = Q_traj{1,5};
+                Q = Q_traj{:,6};
         end        
-        
+      
         if caracteristicas == 1
            set(handles.mav,'String',v_mav(i,1));  
            set(handles.zc,'String',v_zc(i,1)); 
@@ -508,3 +532,6 @@ function popupmenu2_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+function radiobutton6_Callback(hObject, eventdata, handles)
+function radiobutton7_Callback(hObject, eventdata, handles)
