@@ -11,8 +11,8 @@ fopen(pserial);
 srate = 1000;     %Frec. muestreo
 t_inicio = 2000;  %Tiempo inicial sin mov. en ms
 t = 1;            %Tiempo total en segundos
-t_m = t*0.95;     %Tiempo mov.
-t_r = t*0.05;     %Tiempo sin mov.
+t_m = t*0.85;     %Tiempo mov.
+t_r = t*0.15;     %Tiempo sin mov.
 m = t*srate;      %No. muestras totales
 m_m = t_m*srate;  %No. muestras mov.
 m_r = t_r*srate;  %No. muestras sin mov.
@@ -20,7 +20,7 @@ m_r = t_r*srate;  %No. muestras sin mov.
 cont = 1;         %Contador no. de muestras
 cont_r = 1;       %Contador no. de muestras anteriores sin mov.
 cont_f = 0;       %Contador no. grabaciones
-grab = 25;        %No. grabaciones
+grab = 5;        %No. grabaciones
 
 canales = 2;                  %No. canales
 data = zeros(canales,m_m);    %Array para almacenar datos con movimiento
@@ -63,6 +63,9 @@ while cont_f < grab
             v = fscanf(pserial,'%d');
         end
         v2(n) = v(1)*5/1024;                %Almacenar una ventada de muestras anteriores al mov.
+        if (v2(n) > 2.5)
+            v2(n) = 0;
+        end
     end  
     volt = max([v2(1),v2(2)]);   %Obtener el valor máximo del voltaje entre ambos canales
    
@@ -96,7 +99,7 @@ while cont_f < grab
             drawnow limitrate
             cont = 1;                                        %Reiniciar contadores
             cont_r = 1;
-            cont_f = cont_f + 1;                             %Aumentar contador para no. de grabaciones
+            cont_f = cont_f + 1                             %Aumentar contador para no. de grabaciones
             b_act = 0;                                       %Reiniciar bandera de actividad
             canal_1(cont_f,:) = data_n(1,:);                 %Almacenar todas las corridas 
             canal_2(cont_f,:) = data_n(2,:);                        
