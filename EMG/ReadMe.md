@@ -7,6 +7,7 @@ Este proyecto tiene como fin el desarrollo de una interfaz biomédica para el co
 **[1. Prerrequisitos](#prerrequisitos)**
   * [1.1 Librería libsvm](#libsvm)
   * [1.2 Toolboxes](#toolboxes)
+  
 **[2. Estructura de Carpetas](#carpetas)**
   * [2.1 Código](#codigo)
   * [2.2 Documentes](#documentos)
@@ -34,16 +35,16 @@ En esta carpeta se encuentran las carpetas siguientes:
 2. features
 3. matlab
  * Adquisición Señales
-  + 1canal
-  + 2canales
+      + 1canal
+      + 2canales
  * Clasificadores Base de Datos Propia
  * Clasificadores Base de Datos Pública
-  + RN
-  + SVM
+      + RN
+      + SVM
  * Filtros
  * Interfaz 
-  + Simulación base de datos pública
-  + Simulación tiempo real
+      + Simulación base de datos pública
+      + Simulación tiempo real
   
 Los códigos presentes en cada carpeta se detallaran más adelante.
   
