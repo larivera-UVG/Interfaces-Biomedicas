@@ -9,7 +9,7 @@ La segunda etapa consistió en seleccionar características que redujeran la dim
 La tercera etapa consistió en desarrollar la parte gráfica de la BCI. Esto se divide en dos partes, el robot y la interfaz gráfica. Se desarrollaron tres modelos robóticos los cuales fueron el UR5, el R17 y el Puma 560 para ser accionados por la interfaz. Para la interfaz era una prioridad que esta fuese intuitiva para el usuario y debía mostrar las señales en tiempo real, el resultado de su clasificación y el comando que ejecuta el robot. La cuarta etapa consistió en validar el correcto funcionamiento de las etapas antes mencionadas trabajando conectadas.
 
 ## Índice
-[Pruebas base de datos gestos](../Interfaces-Biomedicas/EEG/Código/Pruebas SVM y RN dominio del tiempo/)
+[Pruebas base de datos gestos](../Interfaces-Biomemdicas/master/EEG)
 ## Instalación
 
 ## Uso
