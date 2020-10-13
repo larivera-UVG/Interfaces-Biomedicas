@@ -30,21 +30,21 @@ A continuación se presenta un resumen del contenido de las carpetas de este rep
 En esta carpeta se encuentran las carpetas siguientes:
 
 1. arduino 
- * 1canal
- * 2canales
+    * 1canal
+    * 2canales
 2. features
 3. matlab
- * Adquisición Señales
-      + 1canal
-      + 2canales
- * Clasificadores Base de Datos Propia
- * Clasificadores Base de Datos Pública
-      + RN
-      + SVM
- * Filtros
- * Interfaz 
-      + Simulación base de datos pública
-      + Simulación tiempo real
+    * Adquisición Señales
+         + 1canal
+         + 2canales
+    * Clasificadores Base de Datos Propia
+    * Clasificadores Base de Datos Pública
+         + RN
+         + SVM
+    * Filtros
+    * Interfaz 
+         + Simulación base de datos pública
+         + Simulación tiempo real
   
 Los códigos presentes en cada carpeta se detallaran más adelante.
   
