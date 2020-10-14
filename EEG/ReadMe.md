@@ -27,14 +27,14 @@ La tercera etapa consistió en desarrollar la parte gráfica de la BCI. Esto se 
 2. Descargar la base de datos *Sleep-EDF Database Expanded* de *Physionet* en el siguiente enlace https://physionet.org/content/sleep-edfx/1.0.0/
 
 ### 1.2. Funciones de Lectura <a name="func"></a>
-1. Descargar la función *edfreadUntilDone.m* del siguiente enlace https://es.mathworks.com/matlabcentral/fileexchange/31900-edfread
-2. Descargar las funciones *Eventread.m* y *edfread.m* del siguiente enlace https://www.csie.ntu.edu.tw/~cjlin/libsvm/#download
+1. Descargar la función [edfreadUntilDone.m](https://es.mathworks.com/matlabcentral/fileexchange/31900-edfread)
+2. Descargar las funciones [Eventread.m y edfread.m](https://www.csie.ntu.edu.tw/~cjlin/libsvm/#download)
 3. Correr el ejemplo presentado en el segundo enlace en caso sea necesario para familiarizarse con las funciones.
 
 ### 1.3. Librerías <a name="lib"></a>
 
 #### Líbreria de Robótica de Peter Corke
-1. Descargar la Librería de Robótica de Peter Corke del siguiente enlace https://petercorke.com/toolboxes/robotics-toolbox/2. 
+1. Descargar la [Librería de Robótica](https://petercorke.com/toolboxes/robotics-toolbox/2) de Peter Corke. 
 2. Desde el explorador de archivos de MATLAB dirigirse a la ubicación del archivo descargado y dar doble click sobre el mismo para finalizar la instalación.
 
 ## Contenido Carpetas <a name="carpetas"></a>
