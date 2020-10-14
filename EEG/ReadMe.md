@@ -65,7 +65,7 @@ En esta carpeta se encuentran las carpetas siguientes:
     
  6. Serial
     
- 7. Wavelets [Pruebas base de datos gestos](../Interfaces-Biomedicas/tree/master/EEG/Código/Wavelets)
+ 7. Wavelets [Pruebas base de datos gestos](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Wavelets)
  https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Wavelets
   
 Los códigos presentes en cada carpeta se detallaran más adelante.
