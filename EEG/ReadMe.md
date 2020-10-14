@@ -43,11 +43,11 @@ A continuación se presenta un resumen del contenido de las carpetas de este rep
 ### 2.1 Código <a name="codigo"></a>
 En esta carpeta se encuentran las carpetas siguientes:
 
-1. Arduino 
+1. [Arduino](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Arduino) 
     * 1canal
     * 2canales
-2. Interfaz
-3. Pruebas Base de Datos Sueño
+2. [Interfaz](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Interfaz)
+3. [Pruebas Base de Datos Sueño](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Pruebas%20Base%20de%20datos%20Sueño)
     * Adquisición Señales
          + 1canal
          + 2canales
@@ -59,7 +59,7 @@ En esta carpeta se encuentran las carpetas siguientes:
     * Interfaz 
          + Simulación base de datos pública
          + Simulación tiempo real
- 4. [Pruebas SVM y RN Dominio del Tiempo](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Pruebas SVM y RN dominio del tiempo)
+ 4. [Pruebas SVM y RN Dominio del Tiempo](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Pruebas%20SVM%20y%20RN%20dominio%20del%20tiempo)
     
  5. [Robot](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Robot)
     
