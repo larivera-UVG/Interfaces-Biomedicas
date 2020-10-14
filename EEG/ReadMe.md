@@ -23,12 +23,12 @@ La tercera etapa consistió en desarrollar la parte gráfica de la BCI. Esto se 
 ## Prerrequisitos <a name="prerrequisitos"></a>
 
 ### 1.1. Bases de Datos <a name="dbPhys"></a>
-1. Descargar la base de datos *EEG Motor Movement/Imagery Dataset* de *Physionet* en el siguiente enlace https://physionet.org/content/eegmmidb/1.0.0/
-2. Descargar la base de datos *Sleep-EDF Database Expanded* de *Physionet* en el siguiente enlace https://physionet.org/content/sleep-edfx/1.0.0/
+1. Descargar la base de datos [EEG Motor Movement/Imagery Dataset](https://physionet.org/content/eegmmidb/1.0.0/) de *Physionet*.
+2. Descargar la base de datos [Sleep-EDF Database Expanded](https://physionet.org/content/sleep-edfx/1.0.0/) de *Physionet*. 
 
 ### 1.2. Funciones de Lectura <a name="func"></a>
-1. Descargar la función [edfreadUntilDone.m](https://es.mathworks.com/matlabcentral/fileexchange/31900-edfread)
-2. Descargar las funciones [Eventread.m y edfread.m](https://www.csie.ntu.edu.tw/~cjlin/libsvm/#download)
+1. Descargar la función [edfreadUntilDone.m](https://es.mathworks.com/matlabcentral/fileexchange/31900-edfread).
+2. Descargar las funciones [Eventread.m y edfread.m](https://es.mathworks.com/matlabcentral/answers/375362-how-can-i-read-edf-event-file-since-i-have-corresponded-edf-file-in-matlab).
 3. Correr el ejemplo presentado en el segundo enlace en caso sea necesario para familiarizarse con las funciones.
 
 ### 1.3. Librerías <a name="lib"></a>
@@ -44,29 +44,22 @@ A continuación se presenta un resumen del contenido de las carpetas de este rep
 En esta carpeta se encuentran las carpetas siguientes:
 
 1. [Arduino](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Arduino) 
-    * 1canal
+    En esta carpeta se encuentra el código que se le debe cargar al Arduino para simular la recepción de señales en tiempo real con comunicación serial.
     * 2canales
 2. [Interfaz](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Interfaz)
+    En esta carpeta se encuentra el código de diseño de la interfaz, las funciones auxiliares y los datos que se usan para la demostración final del proyecto.
 3. [Pruebas Base de Datos Sueño](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Pruebas%20Base%20de%20datos%20Sueño)
-    * Adquisición Señales
-         + 1canal
-         + 2canales
-    * Clasificadores Base de Datos Propia
-    * Clasificadores Base de Datos Pública
-         + RN
-         + SVM
-    * Filtros
-    * Interfaz 
-         + Simulación base de datos pública
-         + Simulación tiempo real
+    En esta carpeta se encuentran los datos de la base de datos de sueño y también las pruebas que se realizaron a estos datos en el dominio del tiempo y en el dominio del tiempo-frecuencia, así como sus funciones auxiliares.
  4. [Pruebas SVM y RN Dominio del Tiempo](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Pruebas%20SVM%20y%20RN%20dominio%20del%20tiempo)
+    En esta carpeta se encuentran las pruebas con SVM y RN con características en el dominio del tiempo a la base de datos de gestos.
     
  5. [Robot](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Robot)
+    En esta carpeta se encuentra el desarrollo de los modelos de los robots R17, UR5 y Puma 560 con sus respectivas trayectorias para controlar los modelos.
     
  6. [Serial](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Serial)
-    
+    En esta carpeta se encuentra el código de MATLAB para probar la comunicación serial con el Arduino.
  7. [Wavelets](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Wavelets)
-  
+    En esta carpeta se encuentran los códigos correspondientes a las pruebas en el dominio tiempo/frecuencia con wavelets para la base de datos de gestos. 
 Los códigos presentes en cada carpeta se detallaran más adelante.
   
 ### 2.2. Referencias Bibliográficas <a name="ref"></a>
