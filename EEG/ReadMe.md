@@ -59,21 +59,20 @@ En esta carpeta se encuentran las carpetas siguientes:
     * Interfaz 
          + Simulación base de datos pública
          + Simulación tiempo real
- 4. Pruebas SVM y RN dominio del tiempo
+ 4. [Pruebas SVM y RN Dominio del Tiempo](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Pruebas SVM y RN dominio del tiempo)
     
- 5. Robot
+ 5. [Robot](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Robot)
     
- 6. Serial
+ 6. [Serial](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Serial)
     
- 7. Wavelets [Pruebas base de datos gestos](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Wavelets)
- https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Wavelets
+ 7. [Wavelets](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Wavelets)
   
 Los códigos presentes en cada carpeta se detallaran más adelante.
   
-### 2.2 Referencias Bibliográficas <a name="ref"></a>
+### 2.2. Referencias Bibliográficas <a name="ref"></a>
 En esta carpeta se encuentran documentos importantes que se usaron para esta investigación.
 
-### 2.3 Trabajo de Graduación <a name="tG"></a>
+### 2.3. Trabajo de Graduación <a name="tG"></a>
 En esta carpeta se encuentra el documento de tesis.
 
 
