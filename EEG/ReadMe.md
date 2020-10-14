@@ -9,7 +9,75 @@ La segunda etapa consistió en seleccionar características que redujeran la dim
 La tercera etapa consistió en desarrollar la parte gráfica de la BCI. Esto se divide en dos partes, el robot y la interfaz gráfica. Se desarrollaron tres modelos robóticos los cuales fueron el UR5, el R17 y el Puma 560 para ser accionados por la interfaz. Para la interfaz era una prioridad que esta fuese intuitiva para el usuario y debía mostrar las señales en tiempo real, el resultado de su clasificación y el comando que ejecuta el robot. La cuarta etapa consistió en validar el correcto funcionamiento de las etapas antes mencionadas trabajando conectadas.
 
 ## Índice
-[Pruebas base de datos gestos](../Interfaces-Biomemdicas/master/EEG)
+
+**[1. Prerrequisitos](#prerrequisitos)**
+  * [1.1. Bases de Datos](#dbPhys)
+  * [1.2. Funciones de Lectura](#func)
+  * [1.3. Librerías](#lib)
+  
+**[2. Contenido Carpetas](#carpetas)**
+  * [2.1. Código](#codigo)
+  * [2.2. Referencias Bibliográficas](#ref)
+  * [2.3. Trabajo de Graduación](#tG)
+   
+## Prerrequisitos <a name="prerrequisitos"></a>
+
+### 1.1. Bases de Datos <a name="dbPhys"></a>
+1. Descargar la base de datos *EEG Motor Movement/Imagery Dataset* de *Physionet* en el siguiente enlace https://physionet.org/content/eegmmidb/1.0.0/
+2. Descargar la base de datos *Sleep-EDF Database Expanded* de *Physionet* en el siguiente enlace https://physionet.org/content/sleep-edfx/1.0.0/
+
+### 1.2. Funciones de Lectura <a name="func"></a>
+1. Descargar la función *edfreadUntilDone.m* del siguiente enlace https://es.mathworks.com/matlabcentral/fileexchange/31900-edfread
+2. Descargar las funciones *Eventread.m* y *edfread.m* del siguiente enlace https://www.csie.ntu.edu.tw/~cjlin/libsvm/#download
+3. Correr el ejemplo presentado en el segundo enlace en caso sea necesario para familiarizarse con las funciones.
+
+### 1.3. Librerías <a name="lib"></a>
+
+#### Líbreria de Robótica de Peter Corke
+1. Descargar la Librería de Robótica de Peter Corke del siguiente enlace https://petercorke.com/toolboxes/robotics-toolbox/2. 
+2. Desde el explorador de archivos de MATLAB dirigirse a la ubicación del archivo descargado y dar doble click sobre el mismo para finalizar la instalación.
+
+## Contenido Carpetas <a name="carpetas"></a>
+A continuación se presenta un resumen del contenido de las carpetas de este repositorio. 
+
+### 2.1 Código <a name="codigo"></a>
+En esta carpeta se encuentran las carpetas siguientes:
+
+1. Arduino 
+    * 1canal
+    * 2canales
+2. Interfaz
+3. Pruebas Base de Datos Sueño
+    * Adquisición Señales
+         + 1canal
+         + 2canales
+    * Clasificadores Base de Datos Propia
+    * Clasificadores Base de Datos Pública
+         + RN
+         + SVM
+    * Filtros
+    * Interfaz 
+         + Simulación base de datos pública
+         + Simulación tiempo real
+ 4. Pruebas SVM y RN dominio del tiempo
+    
+ 5. Robot
+    
+ 6. Serial
+    
+ 7. Wavelets [Pruebas base de datos gestos](../Interfaces-Biomedicas/master/EEG/Código)
+  
+Los códigos presentes en cada carpeta se detallaran más adelante.
+  
+### 2.2 Referencias Bibliográficas <a name="ref"></a>
+En esta carpeta se encuentran documentos importantes que se usaron para esta investigación.
+
+### 2.3 Trabajo de Graduación <a name="tG"></a>
+En esta carpeta se encuentra el documento de tesis.
+
+
+## Índice
+[Pruebas base de datos gestos](../Interfaces-Biomedicas/master/EEG)
 ## Instalación
 
 ## Uso
