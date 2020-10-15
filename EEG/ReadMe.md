@@ -19,6 +19,8 @@ La tercera etapa consistió en desarrollar la parte gráfica de la BCI. Esto se 
   * [2.1. Código](#codigo)
   * [2.2. Referencias Bibliográficas](#ref)
   * [2.3. Trabajo de Graduación](#tG)
+  
+**[3. Instrucciones de Uso](#uso)**
    
 ## 1. Instalación <a name="instal"></a>
 
@@ -69,7 +71,7 @@ En esta carpeta se encuentran documentos importantes que se usaron para esta inv
 ### 2.3. Trabajo de Graduación <a name="tG"></a>
 En esta carpeta se encuentra el documento de tesis.
 
-## 3. Uso
+## 3. Instrucciones de Uso <a name="uso"></a>
 Para comprender las funciones y como utilizar los códigos presentes en las carpetas antes mencionadas se recomienda leer los comentarios incluídos en cada código.
 
 Para observar el funcionamiento del proyecto completo, es decir todos los módulos trabajando en conjunto se recomienda seguir los siguientes pasos:
