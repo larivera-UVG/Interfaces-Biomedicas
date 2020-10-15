@@ -45,11 +45,14 @@ En esta carpeta se encuentran las carpetas siguientes:
 
 2.1.1. [Arduino](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Arduino) 
     * En esta carpeta se encuentra el código que se le debe cargar al Arduino para simular la recepción de señales en tiempo real con comunicación serial.
+    
 2.1.2. [Interfaz](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Interfaz)
     * En esta carpeta se encuentra el código de diseño de la interfaz, las funciones auxiliares y los datos que se usan para la demostración final del proyecto.
+
 2.1.3. [Pruebas Base de Datos Sueño](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Pruebas%20Base%20de%20datos%20Sueño)
     * En esta carpeta se encuentran los datos de la base de datos de sueño y también las pruebas que se realizaron a estos datos en el dominio del tiempo y en el dominio del tiempo-frecuencia, así como sus funciones auxiliares.
- 2.1.4. [Pruebas SVM y RN Dominio del Tiempo](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Pruebas%20SVM%20y%20RN%20dominio%20del%20tiempo)
+
+2.1.4. [Pruebas SVM y RN Dominio del Tiempo](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Pruebas%20SVM%20y%20RN%20dominio%20del%20tiempo)
     * En esta carpeta se encuentran las pruebas con SVM y RN con características en el dominio del tiempo a la base de datos de gestos.
     
  2.1.5. [Robot](https://github.com/larivera-UVG/Interfaces-Biomedicas/tree/master/EEG/Código/Robot)
