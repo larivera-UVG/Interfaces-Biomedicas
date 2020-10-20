@@ -1,4 +1,4 @@
-%%INTERFAZ_TIEMPO_REAL SIMULACIÓN CON BASE DE DATOS 
+%%SIMULACIÓN CON DATOS ADQUIRIDOS EN TIEMPO REAL
 
 function varargout = interfaz_tiempo_real(varargin)
 % INTERFAZ_TIEMPO_REAL MATLAB code for interfaz_tiempo_real.fig
@@ -24,7 +24,7 @@ function varargout = interfaz_tiempo_real(varargin)
 
 % Edit the above text to modify the response to help interfaz_tiempo_real
 
-% Last Modified by GUIDE v2.5 14-Sep-2020 18:44:41
+% Last Modified by GUIDE v2.5 17-Oct-2020 18:25:07
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -214,6 +214,7 @@ end
 function robot_Callback(hObject, eventdata, handles)
 global Robot
 global Q_traj
+global q_conf
 global q0
 global select_rob
 select_rob = 0;
@@ -227,6 +228,7 @@ switch value
         imag = imread(path);
         imshow(imag);
         load 'R17_traj.mat'
+        load 'R17_conf.mat'
         set(handles.uibuttongroup1, 'Visible', 'of');
         set(handles.uibuttongroup2, 'Visible', 'of');
         set(handles.uibuttongroup3, 'Visible', 'on');
@@ -255,6 +257,7 @@ switch value
         imag = imread(path);
         imshow(imag);
         load 'SCARA_traj.mat'
+        load 'SCARA_conf.mat'
         set(handles.uibuttongroup1, 'Visible', 'of');
         set(handles.uibuttongroup2, 'Visible', 'on');
         set(handles.uibuttongroup3, 'Visible', 'of');
@@ -277,13 +280,14 @@ switch value
         imag = imread(path);
         imshow(imag);
         load 'Rsimple_traj.mat'
+        load 'Rsimple_conf.mat'
         set(handles.uibuttongroup1, 'Visible', 'on');
         set(handles.uibuttongroup2, 'Visible', 'of');
         set(handles.uibuttongroup3, 'Visible', 'of');
         set(handles.text42, 'Visible', 'of');
         set(handles.text43, 'Visible', 'on');
         select_rob = 3;
-        q0 = zeros(1,2);
+        q0 = zeros(1,2); 
         a1 = 1; a2 = 1;
         L1 = Revolute('d', 0, 'a', a1, 'alpha', pi/2);
         L2 = Revolute('d', 0, 'a', a2, 'alpha', 0);
@@ -315,8 +319,10 @@ function uibuttongroup1_SelectionChangedFcn(hObject, eventdata, handles)
 global Robot
 global select_rob
 global Q_traj
+global origen
 
 if (select_rob == 3)
+    origen = [0,0];
     switch(get( eventdata.NewValue,'Tag'))
         case 'radiobutton2'
             Q = Q_traj{:,1};
@@ -341,8 +347,10 @@ function uibuttongroup3_SelectionChangedFcn(hObject, eventdata, handles)
 global Robot
 global select_rob
 global Q_traj
+global origen
 
 if (select_rob == 1)
+    origen = [0,0,0,0,0,0];
     switch(get( eventdata.NewValue,'Tag'))
         case 'radiobutton14'
             Q = Q_traj{:,1};
@@ -366,8 +374,10 @@ function uibuttongroup2_SelectionChangedFcn(hObject, eventdata, handles)
 global Robot
 global select_rob
 global Q_traj
+global origen
 
 if (select_rob == 2)
+    origen = [0,0,0,0];
     switch(get( eventdata.NewValue,'Tag'))
         case 'radiobutton8'
             Q = Q_traj{:,1};
@@ -391,10 +401,13 @@ function start_Callback(hObject, eventdata, handles)
 global caracteristicas
 global select_rob
 global Q_traj
+global q_conf
 global q0
 global Robot
 global stop
 global pserial
+global movimiento
+movimiento = 0;
 stop = 0;
 
 %load RN_female.mat
@@ -422,24 +435,28 @@ n_data = zeros(1,canales*m);  %Array para almacenar los dos canales unidos.
 data_f = [];                  %Array para almacenar datos filtro pasa bandas
 data_n = [];                  %Array para almacenar datos filtro notch
 
+canal_1 = zeros(1,m);                   %Almacenar todas las corridas canal 1
+canal_2 = zeros(1,m);                   %Almacenar todas las corridas canal 2
+
 F_pb = filtro_pasa_banda(srate,20,450);    %Diseñar filtro pasa banda       
 F_notch = filtro_rechaza_banda(srate);     %Diseñar filtro rechaza banda 
 
 %Inicializar variables
-v = 0;
+v = 0; 
 v2 = zeros(1,canales);    
 volt = 0;     
 ga = 0.15;                                 %Tolerancia threshold
 b_act = 0;                                 %Bandera para detectar actividad
 
+
 %DETALLES GRÁFICAS
-t = 1:n_m;
-h1 = plot(handles.axes2,t,canal1);
-ylim(handles.axes2,[-5,5]);
+t = 1:m;
+h1 = plot(handles.axes2,t,zeros(1,m));
+ylim(handles.axes2,[-0.5,0.5]);
 ylabel(handles.axes2,"V");
 %xlabel(handles.axes2,"ms");
-h2 = plot(handles.axes3,t,canal2);
-ylim(handles.axes3,[-5,5]);
+h2 = plot(handles.axes3,t,zeros(1,m));
+ylim(handles.axes3,[-0.5,0.5]);
 ylabel(handles.axes3,"V");
 %xlabel(handles.axes3,"ms");
 
@@ -447,13 +464,16 @@ th = identificacion2(pserial,t_inicio);    %Identificar el valor del threshold
 
 while stop == 0  
     for n = 1:canales
-        v = fscanf(pserial,'%d');          %Leer datos puerto serial, convertir de 0-5V
+        v = fscanf(pserial,'%d');          %Leer datos puerto serial
         if(isempty(v) == 1)
             v = fscanf(pserial,'%d');
         end
-        v2(n) = v(1)*5/1024;                %Almacenar una ventada de muestras anteriores al mov.
+        v2(:,n) = v(1)*5/1024;               %Convertir de 0-5V
+        if (v2(:,n) > 2.5)
+            v2(:,n) = 0;
+        end        
     end  
-    volt = max([v2(1),v2(2)]);   %Obtener el valor máximo del voltaje entre ambos canales
+    volt = max([v2(:,1),v2(:,2)]);   %Obtener el valor máximo del voltaje entre ambos canales
    
     %Detectar inicio de actividad
     if volt > (th + ga) && b_act == 0 && volt < 5 && cont_r > 25
@@ -462,15 +482,15 @@ while stop == 0
     end
     
     if b_act == 0
-        data_r(1,cont_r) = v2(1);        %Almaceno una ventana de muestras anteriores al mov.
-        data_r(2,cont_r) = v2(2); 
+        data_r(1,cont_r) = v2(:,1);        %Almaceno una ventana de muestras anteriores al mov.
+        data_r(2,cont_r) = v2(:,2); 
         cont_r = cont_r + 1;             
         if cont_r == m_r + 1             %Reset el contador para las muestras anteriores al mov.
             cont_r = 1;
         end
     else   
-        for n = 1:canales
-            data(n,cont) = v2(n);        %Guardo la señal activa
+        for n_n = 1:canales
+            data(n_n,cont) = v2(:,n_n);        %Guardo la señal activa
         end
         data_c = [data_r - mav(data_r),data - mav(data)];       %Centrar datos
         data_f = filter(F_pb, data_c);                          %Aplicar filtro pasa bandas
@@ -486,7 +506,7 @@ while stop == 0
             b_act = 0;                                       %Reiniciar bandera de actividad
             
             %Extracción características
-            n_data = [data_n(1,:),data_n(1,:)];  %unir los 2 canales 
+            n_data = [data_n(1,:),data_n(2,:)];  %unir los 2 canales 
             n1 = 500;        
             n2 = 1000;
             n3 = 1500;
@@ -503,25 +523,38 @@ while stop == 0
             clase_prueba = vec2ind(y_prueba);   % contiene la etiqueta asignada
             
             %Establecer la posición según la clase
-            switch clase_prueba
-                case 1
-                    Q = Q_traj{:,1};
-                case 2
-                    Q = Q_traj{:,2};
-                case 3
-                    Q = Q_traj{:,3};
-                case 4
-                    Q = Q_traj{:,4};
-            end        
+            if movimiento == 0
+                switch clase_prueba
+                    case 1
+                        Q = Q_traj{:,1};
+                    case 2
+                        Q = Q_traj{:,2};
+                    case 3
+                        Q = Q_traj{:,3};
+                    case 4
+                        Q = Q_traj{:,4};
+                end
+            elseif movimiento == 1
+                switch clase_prueba
+                    case 1
+                        Q = q_conf{:,1};
+                    case 2
+                        Q = q_conf{:,2};
+                    case 3
+                        Q = q_conf{:,3};
+                    case 4
+                        Q = q_conf{:,4};
+                end            
+            end
             
             %Actualizar características en pantalla
             if caracteristicas == 1
                set(handles.mav,'String',v_mav(1));  
                set(handles.zc,'String',v_zc(1)); 
-               set(handles.iemg,'String',v_iemg(1));
+               set(handles.rms,'String',v_rms(1));
                set(handles.wl,'String',v_wl(1));
             end
-          set(handles.num,'String',n);
+          set(handles.num,'String',clase_prueba);
           figure(1); 
           plot(Robot,Q);
         end
@@ -530,10 +563,14 @@ end
 
 fclose(pserial);
 delete(pserial);
+close(handles.output);
+close(figure(1));
+
 
 % --- Executes on button press in stop.
 function stop_Callback(hObject, eventdata, handles)
 global stop
+global pserial
 stop = 1;
 
 % --- Executes on selection change in popupmenu2.
@@ -549,10 +586,10 @@ switch value
         set(handles.mav, 'Visible', 'on');
         set(handles.ZC1, 'Visible', 'on');
         set(handles.zc, 'Visible', 'on');
-        set(handles.IEMG1, 'Visible', 'on');
-        set(handles.iemg, 'Visible', 'on');
-        set(handles.RMS1, 'Visible', 'of');
-        set(handles.rms, 'Visible', 'of');
+        set(handles.IEMG1, 'Visible', 'of');
+        set(handles.iemg, 'Visible', 'of');
+        set(handles.RMS1, 'Visible', 'on');
+        set(handles.rms, 'Visible', 'on');
         set(handles.STD1, 'Visible', 'of');
         set(handles.std, 'Visible', 'of');
         set(handles.VAR1, 'Visible', 'of');
@@ -591,3 +628,41 @@ end
 
 function radiobutton6_Callback(hObject, eventdata, handles)
 function radiobutton7_Callback(hObject, eventdata, handles)
+
+
+% --- Executes on button press in origen.
+function origen_Callback(hObject, eventdata, handles)
+% hObject    handle to origen (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global origen
+global Robot
+figure(1); 
+plot(Robot,origen);
+draw now
+
+
+% --- Executes on selection change in movimiento.
+function movimiento_Callback(hObject, eventdata, handles)
+contents2 = cellstr(get(hObject,'String'));
+value2 = contents2{get(hObject,'Value')};
+global movimiento
+switch value2
+    case 'Pick&Place'
+        movimiento = 0;
+    case 'Juntas'
+        movimiento = 1;
+end
+
+
+% --- Executes during object creation, after setting all properties.
+function movimiento_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to movimiento (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
