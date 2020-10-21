@@ -13,6 +13,10 @@ Este proyecto tiene como fin el desarrollo de una interfaz biomédica para el co
   * [2.1 Código](#codigo)
   * [2.2 Documentos](#documentos)
 
+**[3. Instrucciones para Ejecutar la Simulación](#instrucciones)**
+  * [3.1 Simulación Base de Datos](#Sdatabase)
+  * [3.2 Simulación Tiempo Real](#Streal)
+
 ## Prerrequisitos <a name="prerrequisitos"></a>
 
 ### 1.1 Librería libsvm <a name="libsvm"></a>
@@ -33,23 +37,39 @@ A continuación se presenta un resumen del contenido de las carpetas de este rep
 ### 2.1 Código <a name="codigo"></a>
 En esta carpeta se encuentran las carpetas siguientes:
 
-1. arduino: En esta carpeta se encuentran los códigos de Arduino para leer datos de un canal y dos canales del Bitalino y enviarlos por puerto serial a Matlab.
+1. **Arduino:** En esta carpeta se encuentran los códigos de Arduino para leer datos de un canal y dos canales del Bitalino y enviarlos por puerto serial a Matlab.
     * 1canal
     * 2canales
-2. features: En esta carpeta se encuentran la funciones utilizadas para extraer características temporales de las señales EMG.
-3. matlab
-    * Adquisición Señales: Almacena los códigos para establecer la comunicación entre Arduino y Matlab.
+2. **Features:**(#features) En esta carpeta se encuentran la funciones utilizadas para extraer características temporales de las señales EMG.
+3. **Matlab**
+    * **Adquisición Señales:** Almacena los códigos para establecer la comunicación entre Arduino y Matlab.
          + 1canal
          + 2canales
-    * Clasificadores Base de Datos Propia: En esta carpeta se encuentran archivos .mat con las señales utilizadas para entrenamiento de clasificadores y con las señales de prueba. Además, el código que se utilizó para realizar pruebas y ver el rendimiento de los clasificadores.
-    * Clasificadores Base de Datos Pública: En estas carpetas se almacenan archivos .mat con la información de la base de datos pública según el formato requerido por cada clasificador. Y el código para realizar pruebas de entrenamiento y clasificación con RN y SVM.
+    * **Clasificadores Base de Datos Propia:** En esta carpeta se encuentran archivos .mat con las señales utilizadas para entrenamiento de clasificadores y con las señales de prueba. Además, el código que se utilizó para realizar pruebas y ver el rendimiento de los clasificadores.
+    * **Clasificadores Base de Datos Pública:** En estas carpetas se almacenan archivos .mat con la información de la base de datos pública según el formato requerido por cada clasificador. Y el código para realizar pruebas de entrenamiento y clasificación con RN y SVM.
          + RN
          + SVM
-    * Filtros: Almacena las funciones utilizadas para implementar un filtro pasa bandas y un filtro rechaza bandas.
-    * Interfaz: En estas carpetas se encuentra el código principal y archivos auxiliares requeridos para realizar la simulación del sistema final.
+    * **Filtros:** Almacena las funciones utilizadas para implementar un filtro pasa bandas y un filtro rechaza bandas.
+    * **Interfaz:**  En estas carpetas se encuentra el código principal y archivos auxiliares requeridos para realizar la simulación del sistema final.
          + Simulación base de datos pública
          + Simulación tiempo real
 
 
 ### 2.2 Documentos <a name="documentos"></a>
 En esta carpeta se encuentra los documentos de protocolo y tesis.
+
+## Instrucciones para Ejecutar la Simulación <a name="instrucciones"></a>
+
+### 3.1 Simulación Base de Datos <a name="Sdatabase"></a>
+1. Descargar las funciones de la carpeta Features <a name="features"></a>.
+2. Descargar todos los archivos de la carpeta Matlab/Interfaz/Simulación tiempo real.
+3. Ejecutar el código ***interfaz.m***
+
+### 3.2 Simulación Tiempo Real <a name="Streal"></a>
+1. Conectar el *hardware* de Arduino con el Bitalino y la computadora.
+2. Cargar al Arduino el código ***get_data_2.ino*** ubicado en la carpeta Arduino/2canales.
+3. Descargar las funciones de la carpeta Features <a name="features"></a>.
+4. Descargar las funciones de la carpeta Matlab/Filtros.
+5. Descargar todos los archivos de la carpeta Matlab/Interfaz/Simulación tiempo real.
+6. Almacenar todos los archivos en una sola carpeta.
+7. Ejecutar el código ***interfaz_tiempo_real.m***.
