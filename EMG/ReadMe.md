@@ -40,7 +40,7 @@ En esta carpeta se encuentran las carpetas siguientes:
 1. **Arduino:** En esta carpeta se encuentran los códigos de Arduino para leer datos de un canal y dos canales del Bitalino y enviarlos por puerto serial a Matlab.
     * 1canal
     * 2canales
-2. **Features:**(#features) En esta carpeta se encuentran la funciones utilizadas para extraer características temporales de las señales EMG.
+2. **Features:** En esta carpeta se encuentran la funciones utilizadas para extraer características temporales de las señales EMG.
 3. **Matlab**
     * **Adquisición Señales:** Almacena los códigos para establecer la comunicación entre Arduino y Matlab.
          + 1canal
@@ -61,15 +61,16 @@ En esta carpeta se encuentra los documentos de protocolo y tesis.
 ## Instrucciones para Ejecutar la Simulación <a name="instrucciones"></a>
 
 ### 3.1 Simulación Base de Datos <a name="Sdatabase"></a>
-1. Descargar las funciones de la carpeta Features <a name="features"></a>.
-2. Descargar todos los archivos de la carpeta Matlab/Interfaz/Simulación tiempo real.
+1. Descargar las funciones de la carpeta **Features**.
+2. Descargar todos los archivos de la carpeta **Matlab/Interfaz/Simulación tiempo real**.
 3. Ejecutar el código ***interfaz.m***
 
 ### 3.2 Simulación Tiempo Real <a name="Streal"></a>
 1. Conectar el *hardware* de Arduino con el Bitalino y la computadora.
-2. Cargar al Arduino el código ***get_data_2.ino*** ubicado en la carpeta Arduino/2canales.
-3. Descargar las funciones de la carpeta Features <a name="features"></a>.
-4. Descargar las funciones de la carpeta Matlab/Filtros.
-5. Descargar todos los archivos de la carpeta Matlab/Interfaz/Simulación tiempo real.
+2. Cargar al Arduino el código ***get_data_2.ino*** ubicado en la carpeta
+**Arduino/2canales**.
+3. Descargar las funciones de la carpeta **Features**.
+4. Descargar las funciones de la carpeta **Matlab/Filtros**.
+5. Descargar todos los archivos de la carpeta **Matlab/Interfaz/Simulación tiempo real**.
 6. Almacenar todos los archivos en una sola carpeta.
 7. Ejecutar el código ***interfaz_tiempo_real.m***.
