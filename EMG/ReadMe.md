@@ -61,7 +61,7 @@ En esta carpeta se encuentra los documentos de protocolo y tesis.
 ## Conexión del *Hardware* <a name="hardware"></a>
 
 ### 3.1 Conexión Bitalino y Arduino <a name="bitalino"></a>
-![arduino](/Imagenes/arduino.PNG)
+![arduino](/Interfaces-Biomedicas/EMG/Imagenes/arduino.PNG)
 
 ### 3.2 Ubicación de los Electrodos <a name="electrodos"></a>
-![electrodos](/Imagenes/electrodos.PNG)
+![electrodos](/Interfaces-Biomedicas/EMG/Imagenes/electrodos.PNG)
