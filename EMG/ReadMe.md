@@ -13,9 +13,9 @@ Este proyecto tiene como fin el desarrollo de una interfaz biomédica para el co
   * [2.1 Código](#codigo)
   * [2.2 Documentos](#documentos)
 
-**[3. Instrucciones para Ejecutar la Simulación](#instrucciones)**
-  * [3.1 Simulación Base de Datos](#Sdatabase)
-  * [3.2 Simulación Tiempo Real](#Streal)
+**[3. Conexión del *Hardware*](#hardware)**
+  * [3.1 Conexión Bitalino y Arduino](#bitalino)
+  * [3.2 Ubicación de los Electrodos](#electrodos)
 
 ## Prerrequisitos <a name="prerrequisitos"></a>
 
@@ -32,25 +32,25 @@ Este proyecto tiene como fin el desarrollo de una interfaz biomédica para el co
 Descargar la base de datos del siguiente enlace http://archive.ics.uci.edu/ml/datasets/sEMG%2Bfor%2BBasic%2BHand%2Bmovements
 
 ## Estructura de Carpetas <a name="carpetas"></a>
-A continuación se presenta un resumen del contenido de las carpetas de este repositorio.
+A continuación se presenta la estructura y contenido de las carpetas de este repositorio.
 
 ### 2.1 Código <a name="codigo"></a>
 En esta carpeta se encuentran las carpetas siguientes:
 
-1. **Arduino:** En esta carpeta se encuentran los códigos de Arduino para leer datos de un canal y dos canales del Bitalino y enviarlos por puerto serial a Matlab.
+1. **Arduino**
     * 1canal
     * 2canales
-2. **Features:** En esta carpeta se encuentran la funciones utilizadas para extraer características temporales de las señales EMG.
+2. **Features**
 3. **Matlab**
-    * **Adquisición Señales:** Almacena los códigos para establecer la comunicación entre Arduino y Matlab.
+    * **Adquisición Señales**
          + 1canal
          + 2canales
-    * **Clasificadores Base de Datos Propia:** En esta carpeta se encuentran archivos .mat con las señales utilizadas para entrenamiento de clasificadores y con las señales de prueba. Además, el código que se utilizó para realizar pruebas y ver el rendimiento de los clasificadores.
-    * **Clasificadores Base de Datos Pública:** En estas carpetas se almacenan archivos .mat con la información de la base de datos pública según el formato requerido por cada clasificador. Y el código para realizar pruebas de entrenamiento y clasificación con RN y SVM.
+    * **Clasificadores Base de Datos Propia**
+    * **Clasificadores Base de Datos Pública**
          + RN
          + SVM
-    * **Filtros:** Almacena las funciones utilizadas para implementar un filtro pasa bandas y un filtro rechaza bandas.
-    * **Interfaz:**  En estas carpetas se encuentra el código principal y archivos auxiliares requeridos para realizar la simulación del sistema final.
+    * **Filtros**
+    * **Interfaz**
          + Simulación base de datos pública
          + Simulación tiempo real
 
@@ -58,19 +58,10 @@ En esta carpeta se encuentran las carpetas siguientes:
 ### 2.2 Documentos <a name="documentos"></a>
 En esta carpeta se encuentra los documentos de protocolo y tesis.
 
-## Instrucciones para Ejecutar la Simulación <a name="instrucciones"></a>
+## Conexión del *Hardware* <a name="hardware"></a>
 
-### 3.1 Simulación Base de Datos <a name="Sdatabase"></a>
-1. Descargar las funciones de la carpeta **Features**.
-2. Descargar todos los archivos de la carpeta **Matlab/Interfaz/Simulación tiempo real**.
-3. Ejecutar el código ***interfaz.m***
+### 3.1 Conexión Bitalino y Arduino <a name="bitalino"></a>
+![c_arduino](/Imagenes/arduino.PNG)
 
-### 3.2 Simulación Tiempo Real <a name="Streal"></a>
-1. Conectar el *hardware* de Arduino con el Bitalino y la computadora.
-2. Cargar al Arduino el código ***get_data_2.ino*** ubicado en la carpeta
-**Arduino/2canales**.
-3. Descargar las funciones de la carpeta **Features**.
-4. Descargar las funciones de la carpeta **Matlab/Filtros**.
-5. Descargar todos los archivos de la carpeta **Matlab/Interfaz/Simulación tiempo real**.
-6. Almacenar todos los archivos en una sola carpeta.
-7. Ejecutar el código ***interfaz_tiempo_real.m***.
+### 3.2 Ubicación de los Electrodos <a name="electrodos"></a>
+![c_electrodos](/Imagenes/electrodos.PNG)
