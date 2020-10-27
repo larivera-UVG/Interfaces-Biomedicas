@@ -61,7 +61,7 @@ En esta carpeta se encuentra los documentos de protocolo y tesis.
 ## Conexión del *Hardware* <a name="hardware"></a>
 
 ### 3.1 Conexión Bitalino y Arduino <a name="bitalino"></a>
-![c_arduino](/Imagenes/arduino.PNG)
+![arduino](/Imagenes/arduino.PNG)
 
 ### 3.2 Ubicación de los Electrodos <a name="electrodos"></a>
-![c_electrodos](/Imagenes/electrodos.PNG)
+![electrodos](/Imagenes/electrodos.PNG)
