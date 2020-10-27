@@ -61,7 +61,7 @@ En esta carpeta se encuentra los documentos de protocolo y tesis.
 ## Conexión del *Hardware* <a name="hardware"></a>
 
 ### 3.1 Conexión Bitalino y Arduino <a name="bitalino"></a>
-![arduino](/Interfaces-Biomedicas/EMG/Imagenes/arduino.PNG){width='100px'}
+![arduino](https://github.com/larivera-UVG/Interfaces-Biomedicas/blob/master/EMG/Imagenes/arduino.PNG)
 
 ### 3.2 Ubicación de los Electrodos <a name="electrodos"></a>
-![electrodos](/Interfaces-Biomedicas/EMG/Imagenes/electrodos.PNG){width='100px'}
+![electrodos](https://github.com/larivera-UVG/Interfaces-Biomedicas/blob/master/EMG/Imagenes/electrodos.PNG)
