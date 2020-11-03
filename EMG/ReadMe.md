@@ -13,10 +13,6 @@ Este proyecto tiene como fin el desarrollo de una interfaz biomédica para el co
   * [2.1 Código](#codigo)
   * [2.2 Documentos](#documentos)
 
-**[3. Conexión del *Hardware*](#hardware)**
-  * [3.1 Conexión Bitalino y Arduino](#bitalino)
-  * [3.2 Ubicación de los Electrodos](#electrodos)
-
 ## Prerrequisitos <a name="prerrequisitos"></a>
 
 ### 1.1 Librería libsvm <a name="libsvm"></a>
@@ -57,11 +53,3 @@ En esta carpeta se encuentran las carpetas siguientes:
 
 ### 2.2 Documentos <a name="documentos"></a>
 En esta carpeta se encuentra los documentos de protocolo y tesis.
-
-## Conexión del *Hardware* <a name="hardware"></a>
-
-### 3.1 Conexión Bitalino y Arduino <a name="bitalino"></a>
-![c_arduino](/Imagenes/arduino.PNG)
-
-### 3.2 Ubicación de los Electrodos <a name="electrodos"></a>
-![c_electrodos](/Imagenes/electrodos.PNG)
