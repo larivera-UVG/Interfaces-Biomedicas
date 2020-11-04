@@ -2,8 +2,8 @@
 % Rodrigo Ralda
 
 %clear all;
-%load('caracteristicas.mat');
-%load('modelosEntrenados.mat');
+load('caracteristicas.mat');
+load('modelosEntrenados.mat');
 
 cantCanal = 2;
 record = data{2,12};
@@ -274,6 +274,9 @@ s = confusionchart(clasLearn2(:,end),yfitS);
 s.Title = 'Matriz de confusión SVM grado 3';
 s.RowSummary = 'row-normalized';
 s.ColumnSummary = 'column-normalized';
+
+%figure(9); clf;
+%plotconfusion(clasLearn2(:,end),yfitS);
 % 
 % figure(2); clf;
 % L = confusionchart(clasLearn3(:,end),yfitL)

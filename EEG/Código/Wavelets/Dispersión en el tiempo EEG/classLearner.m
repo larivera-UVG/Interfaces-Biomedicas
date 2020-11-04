@@ -86,9 +86,9 @@ etiquetas = [];
 for cc = 1:cantCanal
     
     if (cc == 1)
-        canal = record(23,:);%C3
+        canal = record(9,:);%C3=9*****O1=61*****Pz=51
     elseif (cc == 2)
-        canal = record(51,:);%C1
+        canal = record(10,:);%C1=10*****P3=49*****Fpz=23
     elseif (cc == 3)
         canal = record(58,:);%C6
     elseif (cc == 4)
@@ -374,11 +374,17 @@ clasLearn4 = [totZC',totMav',bP',curtos',etiquetas(:,1)];
 clasTrainZ = clasLearn4(1:242,:);
 clasPredZ = clasLearn4(243:end,:);
 
-yfitS = trainedModelSVM3.predictFcn(clasPredB(:,1:end-1));
+yfitS = trainedModelSVM3.predictFcn(clasPred(:,1:end-1));
 
+ppp = full(ind2vec(clasPred(:,end)'+1));
+ooo = full(ind2vec(yfitS'+1));
 
-figure(1); clf;
-s = confusionchart(clasPredB(:,end),yfitS);
-s.Title = 'Matriz de confusión SVM grado 3';
-s.RowSummary = 'row-normalized';
-s.ColumnSummary = 'column-normalized';
+figure(9); clf;
+plotconfusion(ppp,ooo);
+% 
+% % figure(1); clf;
+% % s = confusionchart(clasPred(:,end),yfitS);
+% % s.Title = 'Matriz de confusión SVM grado 3';
+% % s.RowSummary = 'row-normalized';
+% % s.ColumnSummary = 'column-normalized';
+% % 

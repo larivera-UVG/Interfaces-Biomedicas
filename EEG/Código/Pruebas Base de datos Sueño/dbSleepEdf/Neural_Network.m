@@ -12,11 +12,14 @@
 %   Input_Vector - input data.
 %   Target_Vector - target data.
 
-x = Input_VectorTrain;%16*531
-t = Target_VectorTrain;%5*531
+% x = Input_VectorTrain;%16*531
+% t = Target_VectorTrain;%5*531
 
-% x = clasTrain(:,1:end-1)';%16*531
-% t = labTrain';%5*531
+x = clasTrain(:,1:end-1)';%16*531
+t = labTrain';%5*531
+
+% x = clasTrain(:,1:end-1)';        
+% t = labelRn(1:6372,:)';
 
 % Choose a Training Function
 % For a list of all training functions type: help nntrain
@@ -58,23 +61,30 @@ result_1 = round(100 - 100*percentErrors,1);
 %figure, plotroc(t,y)
 
 %% Probar RN
-% xs_prueba = Input_VectorTest; % 10 datos al azar
+% xs_prueba = Input_VectorTrain; % 10 datos al azar
 % ys_prueba = net(xs_prueba);
 % clases_prueba = vec2ind(ys_prueba); % contiene las etiquetas asignadas
+% yResp = full(ind2vec(clases_prueba));
 % 
-% figure(1); clf;
-% s = confusionchart(vec2ind(Target_VectorTest),clases_prueba);
-% s.Title = 'Matriz de confusión RN';
-% s.RowSummary = 'row-normalized';
-% s.ColumnSummary = 'column-normalized';
+% figure(9); clf;
+% plotconfusion(Target_VectorTrain,yResp);
 
 %% Sleep pruebas
-% xs_prueba = clasPred(:,1:end-1)';
+
+% xs_prueba = clasPred(:,1:end-1)'; % 10 datos al azar
 % ys_prueba = net(xs_prueba);
 % clases_prueba = vec2ind(ys_prueba); % contiene las etiquetas asignadas
+% yResp = full(ind2vec(clases_prueba));
 % 
-% figure(1); clf;
-% s = confusionchart(vec2ind(labPred'),clases_prueba);
-% s.Title = 'Matriz de confusión RN';
-% s.RowSummary = 'row-normalized';
-% s.ColumnSummary = 'column-normalized';
+% figure(9); clf;
+% plotconfusion(labPred',yResp);
+% % 
+% % xs_prueba = clasPred(:,1:end-1)';
+% % ys_prueba = net(xs_prueba);
+% % clases_prueba = vec2ind(ys_prueba); % contiene las etiquetas asignadas
+% % 
+% % figure(1); clf;
+% % s = confusionchart(vec2ind(labPred'),clases_prueba);
+% % s.Title = 'Matriz de confusión RN';
+% % s.RowSummary = 'row-normalized';
+% % s.ColumnSummary = 'column-normalized';

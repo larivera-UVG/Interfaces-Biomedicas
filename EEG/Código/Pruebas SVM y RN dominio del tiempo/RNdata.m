@@ -5,8 +5,8 @@
 
 %% Neural network
 % %MAV y ZC
-% X_input = [data{2,3}, data{2,5};
-%             data{2,4}, data{2,6}]';
+X_input = [data{2,3}, data{2,5};
+            data{2,4}, data{2,6}]';
 % 
 % %Var y Kurtosis
 % X_input = [data{2,7}, data{2,9}, data{2,3}, data{2,5};
@@ -14,11 +14,11 @@
 
         
 %Todas juntas
-X_input = [data{2,7}, data{2,9}, data{2,3}, data{2,5};
-           data{2,8}, data{2,10}, data{2,4}, data{2,6}]';
-        
-Xtarget = [ones(length(data{2,1}),1),zeros(length(data{2,1}),1);
-            zeros(length(data{2,2}),1),ones(length(data{2,2}),1)]';
+% X_input = [data{2,7}, data{2,9}, data{2,3}, data{2,5};
+%            data{2,8}, data{2,10}, data{2,4}, data{2,6}]';
+%         
+% Xtarget = [ones(length(data{2,1}),1),zeros(length(data{2,1}),1);
+%             zeros(length(data{2,2}),1),ones(length(data{2,2}),1)]';
 
 % Ejemplo de una Red Neuronal
 %  Diseño e Innovación de Ingeniería 1
@@ -91,4 +91,10 @@ view(net)
 % ys_prueba = net(xs_prueba);
 % clases_prueba = vec2ind(ys_prueba) % contiene las etiquetas asignadas
         
-        
+xs_prueba = x; % 10 datos al azar
+ys_prueba = net(xs_prueba);
+clases_prueba = vec2ind(ys_prueba); % contiene las etiquetas asignadas
+yResp = full(ind2vec(clases_prueba));
+
+figure(9); clf;
+plotconfusion(t,yResp);       

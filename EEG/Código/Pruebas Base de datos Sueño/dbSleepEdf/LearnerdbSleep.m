@@ -287,9 +287,17 @@ clasPredZ = clasLearn4(243:end,:);
 
 yfitS = trainedModelSVM3.predictFcn(clasPred(:,1:end-1));
 
+ppp = full(ind2vec(clasPred(:,end)'+1));
+ooo = full(ind2vec(yfitS'+1));
 
-figure(1); clf;
-s = confusionchart(clasPred(:,end),yfitS);
-s.Title = 'Matriz de confusión SVM grado 3';
-s.RowSummary = 'row-normalized';
-s.ColumnSummary = 'column-normalized';
+figure(9); clf;
+plotconfusion(ppp,ooo);
+
+%yfitS = trainedModelSVM3.predictFcn(clasPred(:,1:end-1));
+% 
+% 
+% figure(1); clf;
+% s = confusionchart(clasPred(:,end),yfitS);
+% s.Title = 'Matriz de confusión SVM grado 3';
+% s.RowSummary = 'row-normalized';
+% s.ColumnSummary = 'column-normalized';
