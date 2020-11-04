@@ -1,5 +1,6 @@
 # Código
 En esta carpeta se encuentran las carpetas siguientes:
+Para más detalle de los códigos, leer los comentarios de los mismos.
 
 1. Arduino
     * En esta carpeta se encuentra el código que se le debe cargar al Arduino para simular la recepción de señales en tiempo real con comunicación serial.
