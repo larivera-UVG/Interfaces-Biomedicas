@@ -1,6 +1,6 @@
 # Código
 En esta carpeta se encuentran las carpetas siguientes:
-Para más detalle de los códigos, leer los comentarios de los mismos.
+
 
 1. Arduino
     * En esta carpeta se encuentra el código que se le debe cargar al Arduino para simular la recepción de señales en tiempo real con comunicación serial.
@@ -21,3 +21,5 @@ Para más detalle de los códigos, leer los comentarios de los mismos.
     * En esta carpeta se encuentra el código de MATLAB para probar la comunicación serial con el Arduino.
 7. Wavelets
     * En esta carpeta se encuentran los códigos correspondientes a las pruebas en el dominio tiempo/frecuencia con wavelets para la base de datos de gestos. 
+
+Para más detalle de los códigos, leer los comentarios de los mismos.
