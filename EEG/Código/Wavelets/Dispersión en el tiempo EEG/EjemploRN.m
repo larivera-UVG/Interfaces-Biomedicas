@@ -6,9 +6,9 @@
 %% Neural network
 
 %% Probar datos ordenados
-% % X_input = clasTrainZ(:,1:end-1)';
-% %         
-% % Xtarget = labelRn(1:242,:)';
+X_input = clasTrain(:,1:end-1)';
+        
+Xtarget = labelRn(1:242,:)';
 
 
 %% Todos los datos
@@ -101,13 +101,17 @@ view(net)
 %     
 
 %% Probar datos ordenados
-% xs_prueba = clasPredZ(:,1:end-1)'; % 10 datos al azar
-% ys_prueba = net(xs_prueba);
-% clases_prueba = vec2ind(ys_prueba); % contiene las etiquetas asignadas
-% 
+xs_prueba = clasPred(:,1:end-1)'; % 10 datos al azar
+ys_prueba = net(xs_prueba);
+clases_prueba = vec2ind(ys_prueba); % contiene las etiquetas asignadas
+yResp = full(ind2vec(clases_prueba));
+
+figure(9); clf;
+plotconfusion(ppp,yResp);
+
 % figure(1); clf;
 % s = confusionchart(labelWv(243:end,:),clases_prueba);
 % s.Title = 'Matriz de confusión RN';
 % s.RowSummary = 'row-normalized';
-% s.ColumnSummary = 'column-normalized';
+% % s.ColumnSummary = 'column-normalized';
 

@@ -294,19 +294,29 @@ Etiquetas = [ones(size(Datos{1,1}',1),1); 2*ones(size(Datos{1,2}',1),1);...
     3*ones(size(Datos{1,3}',1),1);4*ones(size(Datos{1,4}',1),1);5*ones(size(Datos{1,5}',1),1)];
 
 l = 50;
-Xtrain = [Datos{1,1}(:,1:l)';Datos{1,2}(:,1:l)';Datos{1,3}(:,1:l)';Datos{1,4}(:,1:l)';Datos{1,5}(:,1:l)'];
-Ytrain = [ones(size(Datos{1,1}(:,1:l)',1),1); 2*ones(size(Datos{1,2}(:,1:l)',1),1);...
+Xpred = [Datos{1,1}(:,1:l)';Datos{1,2}(:,1:l)';Datos{1,3}(:,1:l)';Datos{1,4}(:,1:l)';Datos{1,5}(:,1:l)'];
+Ypred = [ones(size(Datos{1,1}(:,1:l)',1),1); 2*ones(size(Datos{1,2}(:,1:l)',1),1);...
     3*ones(size(Datos{1,3}(:,1:l)',1),1);4*ones(size(Datos{1,4}(:,1:l)',1),1);5*ones(size(Datos{1,5}(:,1:l)',1),1)];
 
-Xpred = [Datos{1,1}(:,l+1:end)';Datos{1,2}(:,l+1:end)';Datos{1,3}(:,l+1:end)';Datos{1,4}(:,l+1:end)';Datos{1,5}(:,l+1:end)'];
-Ypred = [ones(size(Datos{1,1}(:,l+1:end)',1),1); 2*ones(size(Datos{1,2}(:,l+1:end)',1),1);...
+Xtrain = [Datos{1,1}(:,l+1:end)';Datos{1,2}(:,l+1:end)';Datos{1,3}(:,l+1:end)';Datos{1,4}(:,l+1:end)';Datos{1,5}(:,l+1:end)'];
+Ytrain = [ones(size(Datos{1,1}(:,l+1:end)',1),1); 2*ones(size(Datos{1,2}(:,l+1:end)',1),1);...
     3*ones(size(Datos{1,3}(:,l+1:end)',1),1);4*ones(size(Datos{1,4}(:,l+1:end)',1),1);5*ones(size(Datos{1,5}(:,l+1:end)',1),1)];
 
-clasLearn = [X,Etiquetas];
 
-clasLearn = [Xpred,Ypred];
+clasLearn = [Xtrain,Ytrain];
 
-pred = [Xtrain';Ytrain']';
+pred = [Xpred';Ypred']';
+
+
+% yfitS = trainedModelSVM3.predictFcn(Xpred);
+% 
+% ppp = full(ind2vec(Ypred'));
+% ooo = full(ind2vec(yfitS'));
+% 
+% figure(9); clf;
+% plotconfusion(ppp,ooo);
+
+
 % % %pred = clasVerif;
 % % %pred = clasTrain;
 % % 
