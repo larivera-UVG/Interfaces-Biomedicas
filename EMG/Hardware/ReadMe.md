@@ -5,8 +5,13 @@ Para el desarrollo de la interfaz biomédica en tiempo real se utilizaron los si
 El Bitalino es un módulo basado en el microcontrolador de Arduino que permite recoger datos biomédicos a través de una serie de módulos individuales. Cuenta con cuatro canales, dos de estos capaces medir señales electromiográﬁcas. Este dispositivo se utilizó para adquirir señales sEMG de dos canales que se envían a través del Arduino a la computadora para su posterior análisis y procesamiento.
 
 ## Conexión Bitalino y Arduino
-![arduino](https://github.com/larivera-UVG/Interfaces-Biomedicas/blob/master/EMG/Hardware/Imagenes/arduino.PNG?raw=true)
+<img src="https://github.com/larivera-UVG/Interfaces-Biomedicas/blob/master/EMG/Hardware/Imagenes/arduino.PNG" width="300" />
 
 ## Ubicación de los Electrodos
-![electrodos](https://github.com/larivera-UVG/Interfaces-Biomedicas/blob/master/EMG/Hardware/Imagenes/electrodos.PNG?raw=true)
+### Canal 1
+<img src="https://github.com/larivera-UVG/Interfaces-Biomedicas/blob/master/EMG/Hardware/Imagenes/electrodos.PNG" width="350" />
 
+### Canal 2
+<img src="https://github.com/larivera-UVG/Interfaces-Biomedicas/blob/master/EMG/Hardware/Imagenes/electrodos_canal2.PNG" width="350" />
+
+Para el canal 2, la referencia se encuentra ubicada en el codo. 

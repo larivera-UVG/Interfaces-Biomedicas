@@ -52,4 +52,4 @@ En esta carpeta se encuentran las carpetas siguientes:
 
 
 ### 2.2 Documentos <a name="documentos"></a>
-En esta carpeta se encuentra los documentos de protocolo y tesis.
+En esta carpeta se encuentra los documentos de protocolo, tesis, artículo y manual de usuario.
