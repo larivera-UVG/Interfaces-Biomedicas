@@ -8,7 +8,10 @@ El Bitalino es un módulo basado en el microcontrolador de Arduino que permite r
 <img src="https://github.com/larivera-UVG/Interfaces-Biomedicas/blob/master/EMG/Hardware/Imagenes/arduino.PNG" width="300" />
 
 ## Ubicación de los Electrodos
+### Canal 1
+<img src="https://github.com/larivera-UVG/Interfaces-Biomedicas/blob/master/EMG/Hardware/Imagenes/electrodos.PNG" width="350" />
 
-![electrodos](https://github.com/larivera-UVG/Interfaces-Biomedicas/blob/master/EMG/Hardware/Imagenes/electrodos.PNG?raw=true)
+### Canal 2
+<img src="https://github.com/larivera-UVG/Interfaces-Biomedicas/blob/master/EMG/Hardware/Imagenes/electrodos_canal2.PNG" width="350" />
 
-
+Para el canal 2, la referencia se encuentra ubicada en el codo. 
