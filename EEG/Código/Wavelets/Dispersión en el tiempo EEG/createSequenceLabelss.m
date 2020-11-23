@@ -1,5 +1,7 @@
 function [sequence_labels_train,sequence_labels_test] = createSequenceLabelss(Nseq,trainLabels,testLabels)
-% 
+% Funcion auxiliar para ordenar las etiquetas de las muestras y poder 
+% obtener caracteristicas en el dominio del tiempo-frecuencia
+% posteriormente.
 
 
 

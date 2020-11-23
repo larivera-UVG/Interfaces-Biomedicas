@@ -1,4 +1,5 @@
 function [trainData, testData, trainLabels, testLabels] = helperRandomSplits(percent_train_split,EEGData)
+% Funcion auxiliar para llevar a cabo la clasificacion con Wavelets.
 % This function is only in support of XpwWaveletMLExample. It may change or
 % be removed in a future release.
     Labels = EEGData.Labels;

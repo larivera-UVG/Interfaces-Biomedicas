@@ -1,9 +1,5 @@
-%% Prueba Serial Matlab Arduino
 % Rodrigo Ralda - 14813
-% 2020
-% Codigo para probar la comucnacion serial de Matlab con Arduino.
-
-if ~isempty(instrfind);
+% 2020 if ~isempty(instrfind);
   fclose(instrfind);
   delete(instrfind);
   clear s

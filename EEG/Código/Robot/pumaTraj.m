@@ -1,3 +1,11 @@
+%% Trayectorias Puma560
+% Rodrigo Ralda - 14813
+% 2020
+
+% Codigo para calcular la trayectoria suave de juntas que ejecutara el Puma
+% 560.
+
+
 % mdl_ur5;
 % ur5.teach()
 

@@ -1,77 +1,14 @@
-% Rodrigo Ralda
 %% Wavelet Time Scattering for EEG Signal Classification
-% Ejemplo para meter datos al classification learner
-% This example shows how to classify human electrocardiogram (ECG) signals
-% using wavelet time scattering and a support vector machine (SVM)
-% classifier. In wavelet scattering, data is propagated through a series of
-% wavelet transforms, nonlinearities, and averaging to produce low-variance
-% representations of time series. Wavelet time scattering yields signal
-% representations insensitive to shifts in the input signal without
-% sacrificing class discriminability. You must have the Wavelet Toolbox(TM)
-% and the Statistics and Machine Learning Toolbox(TM) to run this example.
-% The data used in this example are publicly available from
-% <https://physionet.org PhysioNet>. You can find a deep learning approach
-% to this classification problem in this example
-% <docid:wavelet_examples#mw_1972856e-c413-4b6d-bc0a-8fd006ec8b8e Classify
-% Time Series Using Wavelets and Deep Learning> and a machine learning
-% approach in this example
-% <docid:wavelet_examples#mw_7b96e2d1-3e9f-4244-9975-57eb3061c1c4 Signal
-% Classification Using Wavelet-Based Features and Support Vector Machines>.
-%% Data Description
-% This example uses ECG data obtained from three groups, or classes, of
-% people: persons with cardiac arrhythmia, persons with congestive heart
-% failure, and persons with normal sinus rhythms. The example uses 162 ECG
-% recordings from three PhysioNet databases:
-% <https://www.physionet.org/physiobank/database/mitdb/ MIT-BIH Arrhythmia
-% Database> [3][5], <https://www.physionet.org/physiobank/database/nsrdb/
-% MIT-BIH Normal Sinus Rhythm Database> [3], and
-% <https://www.physionet.org/physiobank/database/chfdb/ The BIDMC
-% Congestive Heart Failure Database> [2][3]. In total, there are 96
-% recordings from persons with arrhythmia, 30 recordings from persons with
-% congestive heart failure, and 36 recordings from persons with normal
-% sinus rhythms. The goal is to train a classifier to distinguish between
-% arrhythmia (ARR), congestive heart failure (CHF), and normal sinus rhythm
-% (NSR).
-%% Download Data
-% The first step is to download the data from the
-% <https://github.com/mathworks/physionet_ECG_data/ GitHub repository>. To
-% download the data, click |Clone or download| and select |Download ZIP|.
-% Save the file |physionet_ECG_data-master.zip| in a folder where you have
-% write permission. The instructions for this example assume you have
-% downloaded the file to your temporary directory, (|tempdir| in MATLAB).
-% Modify the subsequent instructions for unzipping and loading the data if
-% you choose to download the data in folder different from |tempdir|. If
-% you are familiar with Git, you can download the latest version of the
-% tools (<https://git-scm.com/ git>) and obtain the data from a system
-% command prompt using |git clone
-% https://github.com/mathworks/physionet_ECG_data/| .
-%%
-% The file |physionet_ECG_data-master.zip| contains
-%
-% * ECGData.zip
-% * README.md
-%
-% and ECGData.zip contains
-%
-% * ECGData.mat
-% * Modified_physionet_data.txt
-% * License.txt.
-%
-% ECGData.mat holds the data used in this example. The .txt file,
-% Modified_physionet_data.txt, is required by PhysioNet's copying policy
-% and provides the source attributions for the data as well as a
-% description of the pre-processing steps applied to each ECG recording.
-%% Load Files
-% If you followed the download instructions in the previous section, enter
-% the following commands to unzip the two archive files.
-% unzip(fullfile(tempdir,'physionet_ECG_data-master.zip'),tempdir)
-% unzip(fullfile(tempdir,'physionet_ECG_data-master','ECGData.zip'),...
-%     fullfile(tempdir,'ECGData'))
-% %%
-% % After you unzip the ECGData.zip file, load the data into MATLAB.
-% load(fullfile(tempdir,'ECGData','ECGData.mat'))
+% Rodrigo Ralda - 14813
+% 2020
 
-%%
+% En este codigo se encuentran las primeras pruebas realizadas para
+% implementar wavelets a la base de datos de sueño.
+
+
+
+%% Lectura e identificacion
+% Se leen los datos y se separan segun sus etiquetas y ventanas de tiempo.
 cantCanal = 4;
  
 for cc = 1:cantCanal
@@ -97,14 +34,6 @@ for cc = 1:cantCanal
     EEGData.Data = data;
     EEGData.Labels = etiq;
 
-    %%
-    % |ECGData| is a structure array with two fields: |Data| and |Labels|.
-    % |Data| is a 162-by-65536 matrix where each row is an ECG recording
-    % sampled at 128 hertz. Each ECG time series has a total duration of 512
-    % seconds. |Labels| is a 162-by-1 cell array of diagnostic
-    % labels, one for each row of |Data|. The three diagnostic categories are:
-    % 'ARR' (arrhythmia), 'CHF' (congestive heart failure), and 'NSR' (normal
-    % sinus rhythm).
     %% Create Training and Test Data
     % Randomly split the data into two sets - training and test data sets. The
     % helper function |helperRandomSplit| performs the random split.
@@ -120,26 +49,12 @@ for cc = 1:cantCanal
     [trainData,testData,trainLabels,testLabels] = ...
         helperRandomSplits(percent_train,EEGData);
     %%
-    % There are 113 records in the |trainData| set and 49 records in
-    % |testData|. By design the training data contains 69.75% (113/162) of
-    % the data. Recall that the ARR class represents 59.26% of the data
-    % (96/162), the CHF class represents 18.52% (30/162), and the NSR class
-    % represents 22.22% (36/162). Examine the percentage of each class in the
+    % Examine the percentage of each class in the
     % training and test sets. The percentages in each are consistent with the
     % overall class percentages in the data set.
     Ctrain = countcats(categorical(trainLabels))./numel(trainLabels).*100
     Ctest = countcats(categorical(testLabels))./numel(testLabels).*100
-    %% Plot Samples
-    % Plot the first few thousand samples of four randomly selected records
-    % from |ECGData|. The helper function |helperPlotRandomRecords| does this.
-    % |helperPlotRandomRecords| accepts |ECGData| and a random seed as input.
-    % The initial seed is set at 14 so that at least one record from each class
-    % is plotted. You can execute |helperPlotRandomRecords| with |ECGData| as
-    % the only input argument as many times as you wish to get a sense of the
-    % variety of ECG waveforms associated with each class. You can find the
-    % source code for this and all helper functions in the Supporting Functions
-    % section at the end of this example.
-% %     helperPlotRandomRecordss(EEGData,14)
+
     %% Wavelet Time Scattering 
     % The key parameters to specify in a wavelet time scattering decomposition
     % are the scale of the time invariant, the number of wavelet transforms,
@@ -151,44 +66,7 @@ for cc = 1:cantCanal
     % in the second filter bank. The invariance scale is set to 150 seconds.
     N = size(EEGData.Data,2);
     sf = waveletScattering('SignalLength',N,'SamplingFrequency',100); %se quito Invariance Scale
-    %%
-    % You can visualize the wavelet filters in the two filter banks with the
-    % following.
-% %     [fb,f,filterparams] = filterbank(sf);
-% %     subplot(211)
-% %     plot(f,fb{2}.psift)
-% %     xlim([0 160])
-% %     grid on
-% %     title('1st Filter Bank Wavelet Filters');
-% %     subplot(212)
-% %     plot(f,fb{3}.psift)
-% %     xlim([0 160])
-% %     grid on
-% %     title('2nd Filter Bank Wavelet Filters');
-% %     xlabel('Hz');
-    %%
-    % To demonstrate the invariance scale, obtain the inverse Fourier transform
-    % of the scaling function and center it at 0 seconds in time. The two
-    % vertical black lines mark the -75 and 75 second boundaries. Additionally,
-    % plot the real and imaginary parts of the coarsest-scale (lowest
-    % frequency) wavelet from the first filter bank. Note that the
-    % coarsest-scale wavelet does not exceed the invariant scale determined by
-    % the time support of the scaling function. This is an important property
-    % of wavelet time scattering.
-% %     figure;
-% %     phi = ifftshift(ifft(fb{1}.phift));
-% %     psiL1 = ifftshift(ifft(fb{2}.psift(:,end)));
-% %     t = (-2^9:2^9-1).*1/160;
-% %     scalplt = plot(t,phi);
-% %     hold on
-% %     grid on
-% %     %ylim([-9e-3 9e-3]);
-% %     %plot([-75 -75],[-1.5e-4 1.6e-4],'k--');
-% %     %plot([75 75],[-1.5e-4 1.6e-4],'k--');
-% %     xlabel('Seconds'); ylabel('Amplitude');
-% %     wavplt = plot(t,[real(psiL1) imag(psiL1)]);
-% %     legend([scalplt wavplt(1) wavplt(2)],{'Scaling Function','Wavelet-Real Part','Wavelet-Imaginary Part'});
-% %     title({'Scaling Function';'Coarsest-Scale Wavelet First Filter Bank'})
+
     %%
     % After constructing the scattering decomposition framework, obtain the
     % scattering coefficients for the training data as a matrix. When you run
@@ -205,16 +83,13 @@ for cc = 1:cantCanal
     % In order to obtain a matrix compatible with the SVM classifier, reshape
     % the multisignal scattering transform into a matrix where each column
     % corresponds to a scattering path and each row is a scattering time
-    % window. In this case, you obtain 1808 rows because there are 16 time
-    % windows for each of the 113 signals in the training data.
+    % window.
     Nwin = size(scat_features_train,2);
     scat_features_train = permute(scat_features_train,[2 3 1]);
     scat_features_train = reshape(scat_features_train,...
         size(scat_features_train,1)*size(scat_features_train,2),[]);
     %%
-    % Repeat the process for the test data. Initially, |scat_features_test| is
-    % 416-by-16-by-49 because there are 49 ECG waveforms in the training set.
-    % After reshaping for the SVM classifier, the feature matrix is 784-by-416.
+    % Repeat the process for the test data. 
     scat_features_test = featureMatrix(sf,testData');
     scat_features_test = permute(scat_features_test,[2 3 1]);
     scat_features_test = reshape(scat_features_test,...
@@ -226,14 +101,14 @@ for cc = 1:cantCanal
     [sequence_labels_train,sequence_labels_test] = createSequenceLabelss(Nwin,trainLabels,testLabels);
     %% Cross Validation
     % For classification, two analyses are performed. The first uses all the
-    % scattering data and fits a multi-class SVM with a quadratic kernel. In
-    % total there 2592 scattering sequences in the entire dataset, 16 for each
-    % of the 162 signals. The error rate, or loss, is estimated using 5-fold
+    % scattering data and fits a multi-class SVM with a quadratic kernel. 
+    % The error rate, or loss, is estimated using 5-fold
     % cross validation.
     scat_features = [scat_features_train; scat_features_test];
     allLabels_scat = [sequence_labels_train; sequence_labels_test];
 
     %% class learner
+    % Se preparan los datos para ingresar al classification learner.
     %clasLearn2 = [scat_features, allLabels_scat];
     largo = length(allLabels_scat);
     labelWv = zeros(largo,1); %Etiquetas para wavelets
@@ -265,7 +140,9 @@ clasLearn2 = [caracteristicas, etiquetas(:,1)]; %Features de wavelets
 clasTrain = clasLearn2(1:4824,:);
 clasPred = clasLearn2(4825:end,:);
 %% Clasificador Binario
-clasLearn3 = [];
+% En caso se quieran solo 2 clases y no 3, se desarrollan las siguientes
+% lineas.
+clasLearn3 = []; 
 for jj=1:size(clasLearn2,1)
     if(clasLearn2(jj,end)==0)
          clasLearn3 = [clasLearn3; clasLearn2(jj,:)];
@@ -277,6 +154,8 @@ end
 clasTrainB = clasLearn3(1:187,:);
 clasPredB = clasLearn3(188:end,:);
 %% PCA 
+% Aplicar reduccion de dimensionalidad con PCA, no funciono de la manera
+% esperada. Motivo por el cual esta comentado
 
 % % reduced = pca(caracteristicas');
 % % 
@@ -292,14 +171,8 @@ clasPredB = clasLearn3(188:end,:);
 % title('señal capturada completa');
 
 %% Ejemplo codigo Luis detectar actividad
-% Fs=160;
-% win=4200;%500
-% Tn=4100;%500
-% ga=1.5; %Entre 1.1 y 2
-% for rr=1:64
-%   y=record(rr,1:2000);
-%   es = detecta_EMG(y,Fs,win,Tn,ga,2);
-% end
+% Calcular features en el dominio del tiempoa las wavelets.
+
 totZC = zeros(1,size(clasLearn2,1));
 totMav = zeros(1,size(clasLearn2,1));
 bP = zeros(1,size(clasLearn2,1));
@@ -315,6 +188,8 @@ end
 clasLearn4 = [totZC',totMav',bP',curtos',etiquetas(:,1)];
 clasTrainZ = clasLearn4(1:242,:);
 clasPredZ = clasLearn4(243:end,:);
+
+% Descomentar para obtener matriz de confusión
 
 % yfitS = trainedModelSVM3.predictFcn(clasPred(:,1:end-1));
 % 

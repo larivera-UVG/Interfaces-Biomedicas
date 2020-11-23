@@ -1,5 +1,6 @@
 %Copyright 2017 The MathWorks, Inc.
 function newBand = extractBand(ecgsig,level,stLevl,endLevel) %#codegen
+% Funcion auxiliar ara las pruebas realizadas con Wavelets
 wt = modwt(ecgsig,level);
 wtrec = zeros(size(wt));
 wtrec(stLevl:endLevel,:) = wt(stLevl:endLevel,:);

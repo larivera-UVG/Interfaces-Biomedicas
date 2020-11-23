@@ -1,4 +1,7 @@
 function [root,fx,ea,iter]=bisectnew(func,xl,xu,es,maxit,varargin)
+% Rodrigo Ralda - 14813
+% 2020
+% Funcion auxiliar para calcular wavelets a señal.
 % bisect: root location zeroes
 % [root,fx,ea,iter]=bisect(func,xl,xu,es,maxit,p1,p2,...):
 % uses bisection method to find the root of func

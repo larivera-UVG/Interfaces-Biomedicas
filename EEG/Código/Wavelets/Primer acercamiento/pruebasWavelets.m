@@ -1,5 +1,7 @@
 %% Aplicacion wavelets señales EEG
 % Rodrigo Ralda
+% Codigo para probar wavelets y familiarizarse con las mismas, no utilizado
+% para la BCI. Solamente sirvio para entender como funcionan.
 
 
 %% Generacion data

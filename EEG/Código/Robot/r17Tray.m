@@ -1,3 +1,6 @@
+%% Trayectorias R17
+%Codigo para generar las trayectorias que ejecutara el R17.
+
 % seriallist
 % R17 = R17Init('COMX', 4000);
 % q=[0;0;0;0;0;0];

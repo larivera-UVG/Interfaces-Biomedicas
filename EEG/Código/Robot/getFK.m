@@ -3,6 +3,7 @@
 % -------------------------------------------------------------------------
 % Ver las instrucciones en la guía adjunta.
 % =========================================================================
+% Funcion auxiliar para calcular cinematica directa del manipulador.
 function K = getFK(DH)
     
     K = eye(4);

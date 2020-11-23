@@ -1,6 +1,7 @@
 function [totZC, TotMav, vNew] = metricas(v, vMin, despArriba)
 %Rodrigo Ralda - 14813
 %2020
+%Funcion auxiliar para calcular caracteristicas en el dominio del tiempo.
 %Este codigo es una funcion desarrollada para obtener el ZC y MAV de una serie de datos,
 %En caso la señal sufriera un corrimiento, este se puede corregir con el tercer parámetro.
 signo = 1;

@@ -1,4 +1,6 @@
 function helperPlotRandomRecordss(ECGData,randomSeed)
+% Funcion auxilar para poder llevar graficar y llevar a cabo
+% la clasificacion con Wavelets.
 % This function is only intended to support the XpwWaveletMLExample. It may
 % change or be removed in a future release.
 

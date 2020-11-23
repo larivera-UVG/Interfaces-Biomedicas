@@ -1,3 +1,7 @@
+%% Trayectorias R17
+% Codigo para calcular las trayectorias de las juntas del R17 para cada
+% comando.
+
 % seriallist
 % R17 = R17Init('COMX', 4000);
 % q=[0;0;0;0;0;0];

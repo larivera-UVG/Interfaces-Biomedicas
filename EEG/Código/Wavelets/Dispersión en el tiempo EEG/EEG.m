@@ -1,77 +1,15 @@
-%% Wavelet Time Scattering for EEG Signal Classification
-% This example shows how to classify human electrocardiogram (ECG) signals
-% using wavelet time scattering and a support vector machine (SVM)
-% classifier. In wavelet scattering, data is propagated through a series of
-% wavelet transforms, nonlinearities, and averaging to produce low-variance
-% representations of time series. Wavelet time scattering yields signal
-% representations insensitive to shifts in the input signal without
-% sacrificing class discriminability. You must have the Wavelet Toolbox(TM)
-% and the Statistics and Machine Learning Toolbox(TM) to run this example.
-% The data used in this example are publicly available from
-% <https://physionet.org PhysioNet>. You can find a deep learning approach
-% to this classification problem in this example
-% <docid:wavelet_examples#mw_1972856e-c413-4b6d-bc0a-8fd006ec8b8e Classify
-% Time Series Using Wavelets and Deep Learning> and a machine learning
-% approach in this example
-% <docid:wavelet_examples#mw_7b96e2d1-3e9f-4244-9975-57eb3061c1c4 Signal
-% Classification Using Wavelet-Based Features and Support Vector Machines>.
-%% Data Description
-% This example uses ECG data obtained from three groups, or classes, of
-% people: persons with cardiac arrhythmia, persons with congestive heart
-% failure, and persons with normal sinus rhythms. The example uses 162 ECG
-% recordings from three PhysioNet databases:
-% <https://www.physionet.org/physiobank/database/mitdb/ MIT-BIH Arrhythmia
-% Database> [3][5], <https://www.physionet.org/physiobank/database/nsrdb/
-% MIT-BIH Normal Sinus Rhythm Database> [3], and
-% <https://www.physionet.org/physiobank/database/chfdb/ The BIDMC
-% Congestive Heart Failure Database> [2][3]. In total, there are 96
-% recordings from persons with arrhythmia, 30 recordings from persons with
-% congestive heart failure, and 36 recordings from persons with normal
-% sinus rhythms. The goal is to train a classifier to distinguish between
-% arrhythmia (ARR), congestive heart failure (CHF), and normal sinus rhythm
-% (NSR).
-%% Download Data
-% The first step is to download the data from the
-% <https://github.com/mathworks/physionet_ECG_data/ GitHub repository>. To
-% download the data, click |Clone or download| and select |Download ZIP|.
-% Save the file |physionet_ECG_data-master.zip| in a folder where you have
-% write permission. The instructions for this example assume you have
-% downloaded the file to your temporary directory, (|tempdir| in MATLAB).
-% Modify the subsequent instructions for unzipping and loading the data if
-% you choose to download the data in folder different from |tempdir|. If
-% you are familiar with Git, you can download the latest version of the
-% tools (<https://git-scm.com/ git>) and obtain the data from a system
-% command prompt using |git clone
-% https://github.com/mathworks/physionet_ECG_data/| .
-%%
-% The file |physionet_ECG_data-master.zip| contains
-%
-% * ECGData.zip
-% * README.md
-%
-% and ECGData.zip contains
-%
-% * ECGData.mat
-% * Modified_physionet_data.txt
-% * License.txt.
-%
-% ECGData.mat holds the data used in this example. The .txt file,
-% Modified_physionet_data.txt, is required by PhysioNet's copying policy
-% and provides the source attributions for the data as well as a
-% description of the pre-processing steps applied to each ECG recording.
-%% Load Files
-% If you followed the download instructions in the previous section, enter
-% the following commands to unzip the two archive files.
-% unzip(fullfile(tempdir,'physionet_ECG_data-master.zip'),tempdir)
-% unzip(fullfile(tempdir,'physionet_ECG_data-master','ECGData.zip'),...
-%     fullfile(tempdir,'ECGData'))
-% %%
-% % After you unzip the ECGData.zip file, load the data into MATLAB.
-% load(fullfile(tempdir,'ECGData','ECGData.mat'))
+%% Wavelet Time Scattering for EEG Signal Classification+
+% Rodrigo Ralda - 14813
+% 2020
+% El siguiente codigo permite clasificar la señales EEG utilizando
+% Wavelets, se considera obsoleto. Puede servir como referencia para
+% entender que hace las funciones y como se escribio el dde classLearner.m
 clear all;
 load('caracteristicas.mat');
 
-%%
+%% Orden y separacion
+% Ordenar datos y separarlos segun sus etiquetas para posteriormente
+% entrenar los modelos de clasificacion y validarlos.
 record = data{2,11};
 canal = record(9,:);%9
 label = record(66,:);
@@ -128,14 +66,7 @@ EEGData.Data = [dat0;dat1;dat2];
 EEGData.Labels = [eti0;eti1;eti2];
 
 clasLearn = [dataOrd,labelOrd'];
-%%
-% |ECGData| is a structure array with two fields: |Data| and |Labels|.
-% |Data| is a 162-by-65536 matrix where each row is an ECG recording
-% sampled at 128 hertz. Each ECG time series has a total duration of 512
-% seconds. |Labels| is a 162-by-1 cell array of diagnostic
-% labels, one for each row of |Data|. The three diagnostic categories are:
-% 'ARR' (arrhythmia), 'CHF' (congestive heart failure), and 'NSR' (normal
-% sinus rhythm).
+
 %% Create Training and Test Data
 % Randomly split the data into two sets - training and test data sets. The
 % helper function |helperRandomSplit| performs the random split.
@@ -151,21 +82,17 @@ percent_train = 70;
 [trainData,testData,trainLabels,testLabels] = ...
     helperRandomSplits(percent_train,EEGData);
 %%
-% There are 113 records in the |trainData| set and 49 records in
-% |testData|. By design the training data contains 69.75% (113/162) of
-% the data. Recall that the ARR class represents 59.26% of the data
-% (96/162), the CHF class represents 18.52% (30/162), and the NSR class
-% represents 22.22% (36/162). Examine the percentage of each class in the
+% Examine the percentage of each class in the
 % training and test sets. The percentages in each are consistent with the
 % overall class percentages in the data set.
 Ctrain = countcats(categorical(trainLabels))./numel(trainLabels).*100
 Ctest = countcats(categorical(testLabels))./numel(testLabels).*100
 %% Plot Samples
 % Plot the first few thousand samples of four randomly selected records
-% from |ECGData|. The helper function |helperPlotRandomRecords| does this.
+% from |EEGData|. The helper function |helperPlotRandomRecords| does this.
 % |helperPlotRandomRecords| accepts |ECGData| and a random seed as input.
 % The initial seed is set at 14 so that at least one record from each class
-% is plotted. You can execute |helperPlotRandomRecords| with |ECGData| as
+% is plotted. You can execute |helperPlotRandomRecords| with |EEGData| as
 % the only input argument as many times as you wish to get a sense of the
 % variety of ECG waveforms associated with each class. You can find the
 % source code for this and all helper functions in the Supporting Functions
@@ -179,7 +106,7 @@ helperPlotRandomRecordss(EEGData,14)
 % sufficient to achieve good performance. In this example, we construct a
 % wavelet time scattering decomposition with the default filter banks: 
 % 8 wavelets per octave in the first filter bank and 1 wavelet per octave
-% in the second filter bank. The invariance scale is set to 150 seconds.
+% in the second filter bank. The invariance scale is set to 160 seconds.
 N = size(EEGData.Data,2);
 sf = waveletScattering('SignalLength',N,'SamplingFrequency',160); %se quito Invariance Scale
 %%

@@ -1,3 +1,10 @@
+%% Trayectorias UR5
+% Este codigo tiene como fin definir la trayectoria suave que hara el UR5
+% para los diferentes comandos necesarios.
+
+% Rodrigo Ralda - 14813
+% 2020
+
 % mdl_ur5;
 % ur5.teach()
 

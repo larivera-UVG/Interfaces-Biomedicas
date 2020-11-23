@@ -1,5 +1,5 @@
-%Rodrigo Ralda - 14813
-%2020
+% Rodrigo Ralda - 14813
+% 2020
 %Este codigo tomo como base el proporcionado por el Dr. Luis Rivera y se modifico para aplicar
 %Redes Neuronales a los datos contenidos en la celda data.
 

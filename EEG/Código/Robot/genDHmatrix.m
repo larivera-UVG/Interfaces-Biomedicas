@@ -3,6 +3,7 @@
 % -------------------------------------------------------------------------
 % Ver las instrucciones en la guía adjunta.
 % =========================================================================
+% Funcion auxiliar para generar la matriz de Denavit-Hartenberg
 function A = genDHmatrix(theta, d, a, alpha)
     rotZ = [cos(theta),-sin(theta),0,0;sin(theta),cos(theta),0,0;0,0,1,0;0,0,0,1];
     translZ = [1,0,0,0;0,1,0,0;0,0,1,d;0,0,0,1];

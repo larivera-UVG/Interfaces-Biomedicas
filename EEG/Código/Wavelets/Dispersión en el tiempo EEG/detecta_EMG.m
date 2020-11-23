@@ -1,3 +1,11 @@
+%% Detecta EMG
+% Rodrigo Ralda - 14813
+% 2020
+
+% Funcion auxiliar proporcionada por el Dr. Rivera para detectar actividad en una
+% señal automaticamente.
+
+
 % Event detection for one particular signal, the absolute value of
 % the input signal and a fixed time window.
 % Inputs:

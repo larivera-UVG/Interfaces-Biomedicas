@@ -1,4 +1,5 @@
 function [ClassVotes,ClassCounts] = helperMajorityVote(predLabels,origLabels,classes)
+% Funcion auxiliar para llevar a cabo la clasificacion por Wavelets.
 % This function is in support of ECGWaveletTimeScatteringExample. It may
 % change or be removed in a future release.
 

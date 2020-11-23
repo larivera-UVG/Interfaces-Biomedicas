@@ -18,7 +18,7 @@ Para mostrar el correcto funcionamiento del clasificador se desarrollaron tres m
 **[2. Contenido Carpetas](#carpetas)**
   * [2.1. Código](#codigo)
   * [2.2. Referencias Bibliográficas](#ref)
-  * [2.3. Trabajo de Graduación](#tG)
+  * [2.3. Documentos](#tG)
   
 **[3. Instrucciones de Uso](#uso)**
    
@@ -62,8 +62,8 @@ En esta carpeta se encuentran las carpetas siguientes:
 ### 2.2. Referencias Bibliográficas <a name="ref"></a>
 En esta carpeta se encuentran documentos importantes que se usaron para esta investigación.
 
-### 2.3. Trabajo de Graduación <a name="tG"></a>
-En esta carpeta se encuentra el documento de tesis.
+### 2.3. Documentos <a name="tG"></a>
+En esta carpeta se encuentra el documento de tesis, el manual de usuario y el artículo..
 
 ## 3. Instrucciones de Uso <a name="uso"></a>
 Para comprender las funciones y como utilizar los códigos presentes en las carpetas antes mencionadas se recomienda leer los comentarios incluídos en cada código.
