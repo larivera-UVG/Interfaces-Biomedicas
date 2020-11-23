@@ -4,7 +4,7 @@ function th = identificacion2(pserial,t)
 canales = 2;               %no. canales
 data_s = zeros(canales,t); %array para almacenar datos del puerto serial
 cont_s = 1;                %contador no. muestras sin mov.
-                       %Recibir dato del usuario para inciar
+                       
 fwrite(pserial,107,'uint8');               %Iniciar el envío de datos desde arduino
 
 while cont_s < (t + 1)

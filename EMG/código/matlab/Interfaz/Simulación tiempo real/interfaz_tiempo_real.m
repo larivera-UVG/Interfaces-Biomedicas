@@ -59,17 +59,20 @@ handles.output = hObject;
 
 % Initialise tabs
 handles.tabManager = TabManager( hObject );
+%Importar imagen del disp. robótico.
 axes(handles.axes5);
-path = 'C:\Users\ferna\Desktop\R17.PNG';
+path = 'C:\Users\ferna\Desktop\R17.PNG';   %Colocar el path en donde se encuentre la imagen 
 imag = imread(path);
 imshow(imag);
 axis off;
 
+%Inicializar puerto serial
 global pserial
 puerto = 'COM3';
 delete(instrfind({'Port'},{puerto}));
 pserial=serial(puerto,'BaudRate',115200,'Timeout',10);
 fopen(pserial);
+
 % Set-up a selection changed function on the create tab groups
 % tabGroups = handles.tabManager.TabGroups;
 % for tgi=1:length(tabGroups)
@@ -78,17 +81,6 @@ fopen(pserial);
 
 % Update handles structure
 guidata(hObject, handles);
-
-% UIWAIT makes interfaz_tiempo_real wait for user response (see UIRESUME)
-% uiwait(handles.mainFigure);
-
-
-% Called when a user clicks on a tab
-%function tabChangedCB(src, eventdata)
-
-%disp(['Changing tab from ' eventdata.OldValue.Title ' to ' eventdata.NewValue.Title ] );
-
-
 
 
 % --- Outputs from this function are returned to the command line.
@@ -219,16 +211,17 @@ global q0
 global select_rob
 select_rob = 0;
 
+%DEFINICIÓN DEL DISP. ROBÓTICO SEGÚN LA SELECCIÓN
 contents = cellstr(get(hObject,'String'));
 value = contents{get(hObject,'Value')};
 switch value
-    case 'R17'
+    case 'R17'   %Disp. R17
         axes(handles.axes5);
-        path = 'C:\Users\ferna\Desktop\R17.PNG';
+        path = 'C:\Users\ferna\Desktop\R17.PNG';   %Verificar el path de la imagen
         imag = imread(path);
         imshow(imag);
-        load 'R17_traj.mat'
-        load 'R17_conf.mat'
+        load 'R17_traj.mat'   %Cargar trajectorias
+        load 'R17_conf.mat'   %Cargar configuraciones para mov. por junta
         set(handles.uibuttongroup1, 'Visible', 'of');
         set(handles.uibuttongroup2, 'Visible', 'of');
         set(handles.uibuttongroup3, 'Visible', 'on');
@@ -251,13 +244,13 @@ switch value
         L5 = Revolute('d', d5, 'a', a5, 'alpha', alpha5, 'offset', theta5);
         L6 = Revolute('d', d6, 'a', a6, 'alpha', alpha6, 'offset', theta6);
         Robot = SerialLink([L1,L2,L3,L4,L5,L6], 'name', 'R17');
-    case 'Scara'
+    case 'Scara'     %Robot SCARA
         axes(handles.axes5);
-        path = 'C:\Users\ferna\Desktop\scara.PNG';
+        path = 'C:\Users\ferna\Desktop\scara.PNG';  %Verificar path de la imagen
         imag = imread(path);
         imshow(imag);
-        load 'SCARA_traj.mat'
-        load 'SCARA_conf.mat'
+        load 'SCARA_traj.mat'   %Cargar trayectorias 
+        load 'SCARA_conf.mat'   %Cargar configuraciones para mov. por junta
         set(handles.uibuttongroup1, 'Visible', 'of');
         set(handles.uibuttongroup2, 'Visible', 'on');
         set(handles.uibuttongroup3, 'Visible', 'of');
@@ -274,13 +267,13 @@ switch value
         L3.qlim = [0,1];
         L4 = Link([0, 0, 0, pi, 0]);
         Robot = SerialLink([L1,L2,L3,L4], 'name', 'scara'); 
-    case '2 juntas'
+    case '2 juntas'   %Disp. con 2 juntas
         axes(handles.axes5);
-        path = 'C:\Users\ferna\Desktop\simple.PNG';
+        path = 'C:\Users\ferna\Desktop\simple.PNG';    %Verificar path de la imagen
         imag = imread(path);
         imshow(imag);
-        load 'Rsimple_traj.mat'
-        load 'Rsimple_conf.mat'
+        load 'Rsimple_traj.mat'    %Cargar trayectorias
+        load 'Rsimple_conf.mat'    %Cargar configuraciones para mov. por junta
         set(handles.uibuttongroup1, 'Visible', 'on');
         set(handles.uibuttongroup2, 'Visible', 'of');
         set(handles.uibuttongroup3, 'Visible', 'of');
@@ -321,6 +314,8 @@ global select_rob
 global Q_traj
 global origen
 
+
+%CONTROL DE MOVIMIENTOS DE FORMA MANUAL PARA EL DISP. DE 2 JUNTAS
 if (select_rob == 3)
     origen = [0,0];
     switch(get( eventdata.NewValue,'Tag'))
@@ -332,13 +327,8 @@ if (select_rob == 3)
             Q = Q_traj{:,3};     
         case 'radiobutton5'
             Q = Q_traj{:,4};    
-%         case 'radiobutton6'
-%             Q = Q_traj{:,5};
-%         case 'radiobutton7'
-%             Q = Q_traj{:,6};
     end
 end
-%axes(handles.graf_rob);
 figure(1);
 plot(Robot,Q);
 
@@ -349,6 +339,7 @@ global select_rob
 global Q_traj
 global origen
 
+%CONTROL DE MOVIMIENTOS DE FORMA MANUAL PARA EL DISP. R17
 if (select_rob == 1)
     origen = [0,0,0,0,0,0];
     switch(get( eventdata.NewValue,'Tag'))
@@ -360,10 +351,6 @@ if (select_rob == 1)
             Q = Q_traj{:,3};  
         case 'radiobutton17'
             Q = Q_traj{:,4}; 
-%         case 'radiobutton18'
-%             Q = Q_traj{:,5};  
-%         case 'radiobutton19'
-%             Q = Q_traj{:,6};  
     end
 end
 figure(1);
@@ -376,6 +363,7 @@ global select_rob
 global Q_traj
 global origen
 
+%CONTROL DE MOVIMIENTOS DE FORMA MANUAL PARA EL DISP. SCARA
 if (select_rob == 2)
     origen = [0,0,0,0];
     switch(get( eventdata.NewValue,'Tag'))
@@ -387,10 +375,6 @@ if (select_rob == 2)
             Q = Q_traj{:,3};
         case 'radiobutton11'
             Q = Q_traj{:,4}; 
-%         case 'radiobutton12'
-%             Q = Q_traj{:,5};
-%         case 'radiobutton13'
-%             Q = Q_traj{:,6};
     end
 end
 figure(1);
@@ -579,6 +563,7 @@ global caracteristicas
 contents = cellstr(get(hObject,'String'));
 value = contents{get(hObject,'Value')};
 
+%CONTROL DE LAS CARACTERÍSTICAS QUE SE MUESTRAN EN PANTALLA
 switch value
     case 'Sí'
         caracteristicas = 1;
@@ -638,7 +623,7 @@ function origen_Callback(hObject, eventdata, handles)
 global origen
 global Robot
 figure(1); 
-plot(Robot,origen);
+plot(Robot,origen);      %Colocar el disp. en el origen
 draw now
 
 
@@ -647,6 +632,8 @@ function movimiento_Callback(hObject, eventdata, handles)
 contents2 = cellstr(get(hObject,'String'));
 value2 = contents2{get(hObject,'Value')};
 global movimiento
+
+%SELECCIÓN DEL TIPO DE MOVIMIENTO
 switch value2
     case 'Pick&Place'
         movimiento = 0;
