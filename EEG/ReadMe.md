@@ -63,7 +63,7 @@ En esta carpeta se encuentran las carpetas siguientes:
 En esta carpeta se encuentran documentos importantes que se usaron para esta investigación.
 
 ### 2.3. Documentos <a name="tG"></a>
-En esta carpeta se encuentra el documento de tesis, el manual de usuario y el artículo..
+En esta carpeta se encuentra el documento de tesis, el manual de usuario y el artículo.
 
 ## 3. Instrucciones de Uso <a name="uso"></a>
 Para comprender las funciones y como utilizar los códigos presentes en las carpetas antes mencionadas se recomienda leer los comentarios incluídos en cada código.
